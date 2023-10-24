@@ -1,7 +1,13 @@
 package com.example.demo.model.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "branches")
 public class Branch {
@@ -15,46 +21,4 @@ public class Branch {
 
     @Column(name = "zip_code")
     private String zipCode;
-
-    public Branch() {
-    }
-
-    public Branch(Integer branchId, String address, String zipCode) {
-        this.branchId = branchId;
-        this.address = address;
-        this.zipCode = zipCode;
-    }
-
-    @Override
-    public String toString() {
-        return "Branch{" +
-                "branchId=" + branchId +
-                ", address='" + address + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                '}';
-    }
-
-    public Integer getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(Integer branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
 }

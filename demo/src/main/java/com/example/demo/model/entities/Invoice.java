@@ -2,11 +2,17 @@ package com.example.demo.model.entities;
 
 import com.example.demo.model.enums.PaymentMethod;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "invoices")
 public class Invoice {
@@ -32,76 +38,4 @@ public class Invoice {
     @CreationTimestamp
     @Column(name = "emitted_at", updatable = false)
     private Timestamp emittedAt;
-
-    public Invoice() {
-    }
-
-    public Invoice(Integer invoiceId, PaymentMethod paymentMethod, BigDecimal discount, BigDecimal total, Branch fkBranchId, Timestamp emittedAt) {
-        this.invoiceId = invoiceId;
-        this.paymentMethod = paymentMethod;
-        this.discount = discount;
-        this.total = total;
-        this.fkBranchId = fkBranchId;
-        this.emittedAt = emittedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Invoice{" +
-                "invoiceId=" + invoiceId +
-                ", paymentMethod=" + paymentMethod +
-                ", discount=" + discount +
-                ", total=" + total +
-                ", fkBranchId=" + fkBranchId +
-                ", emittedAt=" + emittedAt +
-                '}';
-    }
-
-    public Integer getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(Integer invoiceId) {
-        this.invoiceId = invoiceId;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public BigDecimal getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    public Branch getFkBranchId() {
-        return fkBranchId;
-    }
-
-    public void setFkBranchId(Branch fkBranchId) {
-        this.fkBranchId = fkBranchId;
-    }
-
-    public Timestamp getEmittedAt() {
-        return emittedAt;
-    }
-
-    public void setEmittedAt(Timestamp emitedAt) {
-        this.emittedAt = emitedAt;
-    }
 }
