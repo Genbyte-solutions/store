@@ -1,6 +1,5 @@
 
 .formulario{
-    
     margin-top: 5vw;
     display: flex;
     justify-content: center;
@@ -52,7 +51,7 @@
     font-size: 16px;
     flex-direction: column;
     width: 25%;
-    text-align: end;
+    text-align: center;
     margin-top: 10px;
 }
 .formulario .recuperar__contraseña a{
@@ -60,6 +59,7 @@
     margin: 5px;
     text-decoration: none;
     font-weight: bold;
+
     
 }
 .formulario .recuperar__contraseña a:hover{
@@ -74,11 +74,37 @@ section ul{
     width: 50vw;
 
 }
-section ul li{
+.error{
     text-align: start;
     font-size: 16px;
     color: red;
     font-family: 'Onest', sans-serif;
     text-decoration: none;
     font-weight: 800;
+}
+
+/* Home */
+
+#root{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.panel-container{
+    width: 850px;
+    height: 600px;
+
+}
+
+.panel-general{
+    width: 400px;
+    text-align: center;
 }

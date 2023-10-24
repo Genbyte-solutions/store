@@ -1,39 +1,38 @@
 import { useState } from "react";
-import "./LoginForm.css";
 
 export function LoginForm({setUser , setClave}) {
   const [userName, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [errores, setErrores] = useState([]); // Utiliza el estado para errores
-
+  const [error, setError] = useState(null); 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newErrores = [];
   
     if (userName === "" || password === "") {
-      newErrores.push("Todos los campos son obligatorios");
+      setError("Todos los campos son obligatorios");
+      return
     }
-    else if (userName.length < 4) {
-      newErrores.push("El nombre de usuario debe tener al menos 4 caracteres");
+    if (userName.length < 4) {
+      setError("El nombre de usuario debe tener al menos 4 caracteres");
+      return
     }
-    else if (password.length < 8) {
-      newErrores.push("La contraseña debe tener al menos 8 caracteres");
-    }
-  
-    if (newErrores.length === 0) {
-      // Solo actualiza user si no hay errores
-      setUser([userName]);
-      setClave([password])
+    if (password.length < 8) {
+      setError("La contraseña debe tener al menos 8 caracteres");
+      return
     }
   
-  
-    setErrores(newErrores);
+    setError(null)
+    setUser(userName)
+    setClave(password)
+    
   };
   
   return (
     <section>
       <form className="formulario" onSubmit={handleSubmit} method="POST">
-        <img src="https://promosdelbanco.com/wp-content/uploads/2017/03/Topper.png" alt="" />
+        <img
+          src="https://promosdelbanco.com/wp-content/uploads/2017/03/Topper.png"
+          alt=""
+        />
         <input
           type="text"
           id="userName"
@@ -49,21 +48,16 @@ export function LoginForm({setUser , setClave}) {
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          />
-          {errores.length > 0 && (
-          <ul>
-            {errores.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
-          </ul>
-          )}
-        <button type="submit"> Iniciar sesión </button>
+        />
+        {error && <p className="error">{error}</p>}
+        <button className="btn btn-primary" type="submit">
+          Iniciar sesión
+        </button>
         <div className="recuperar__contraseña">
-        <a href="">Recuperar usuario</a>
-        <a href="">Recuperar contraseña</a>
+          <a href="">Recuperar usuario</a>
+          <a href="">Recuperar contraseña</a>
         </div>
       </form>
-      
     </section>
   );
 }
