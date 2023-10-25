@@ -11,11 +11,19 @@ export function LoginForm({setUser , setClave}) {
       setError("Todos los campos son obligatorios");
       return
     }
-    if (userName.length < 4) {
+    else if (userName !== "admin"){
+      setError("Usuario incorrecto")
+      return
+    } 
+    else if ( password !== "123456789") {
+      setError("Contraseña Incorrecta")
+      return
+    }
+    else if (userName.length < 4) {
       setError("El nombre de usuario debe tener al menos 4 caracteres");
       return
     }
-    if (password.length < 8) {
+    else if (password.length < 8) {
       setError("La contraseña debe tener al menos 8 caracteres");
       return
     }
