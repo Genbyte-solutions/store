@@ -32,4 +32,9 @@ public class BranchImpl implements IBranch {
     public void deleteById(Integer id) {
         branchRepository.deleteById(id);
     }
+
+    @Override
+    public Branch findById(Integer idBranch) {
+        return branchRepository.findById(idBranch).orElse(null);
+    }
 }

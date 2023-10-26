@@ -12,4 +12,5 @@ public interface IBranch {
 
     void deleteById(Integer id);
 
+    Branch findById(Integer idBranch);
 }

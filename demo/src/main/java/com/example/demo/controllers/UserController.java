@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dto.UserDto;
 import com.example.demo.model.entities.User;
 import com.example.demo.services.IUser;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,8 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public User signIn(@RequestBody User user) {
-        return userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+    public UserDto signIn(@RequestBody User userRecibido) {
+        User user = userService.findByUsernameAndPassword(userRecibido.getUsername(), userRecibido.getPassword());
+        return new UserDto(user.getUserId(),user.getRol());
     }
 }
