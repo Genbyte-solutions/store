@@ -25,6 +25,32 @@ export function Home({ user, setUser }) {
       quantity: 80,
       stock: 30,
     },
+
+    {
+      id: 3,
+      name: "Remera A+",
+      unitPrice: 15,
+      wholesalePrice: 12,
+      quantity: 80,
+      stock: 30,
+    },
+
+    {
+      id: 4,
+      name: "Pelota de Basquet",
+      unitPrice: 15,
+      wholesalePrice: 12,
+      quantity: 80,
+      stock: 30,
+    },
+    {
+      id: 5,
+      name: "Camiseta de Argentina",
+      unitPrice: 15,
+      wholesalePrice: 12,
+      quantity: 80,
+      stock: 30,
+    },
   ];
 
   return (
