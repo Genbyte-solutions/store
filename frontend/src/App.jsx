@@ -6,7 +6,6 @@ import "./LoginForm.css"
 function App() {
   const [user, setUser] = useState("");
   const [clave, setClave] = useState("");
-  console.log(user)
 
   return (
     <>
