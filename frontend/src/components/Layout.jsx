@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 
 export const Ventas = () => {
   return (
@@ -12,16 +12,26 @@ export const Ventas = () => {
   );
 };
 
+
 export const Busqueda = ({ products, setFilteredProducts }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
 
-  const handleSearch = () => {
-    const filteredProducts = products.filter((product) => {
-      return product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    });
+  useEffect(() => {
+    if (searchTerm === "") {
+   
+      setFilteredResults([]);
+      setFilteredProducts([]);
+    } else {
+     
+      const filteredProducts = products.filter((product) => {
+        return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+      });
 
-    setFilteredProducts(filteredProducts);
-  };
+      setFilteredResults(filteredProducts);
+      setFilteredProducts(filteredProducts); 
+    }
+  }, [searchTerm, products, setFilteredProducts]);
 
   return (
     <div className="search-bar">
@@ -35,9 +45,7 @@ export const Busqueda = ({ products, setFilteredProducts }) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className="search-button" onClick={handleSearch}>
-          Buscar
-        </button>
+        <button className="search-button">Buscar</button>
       </div>
     </div>
   );
