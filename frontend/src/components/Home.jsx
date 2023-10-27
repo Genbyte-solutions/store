@@ -10,6 +10,8 @@ import { useFilter } from "../hooks/useFilter"
 import { Cart } from "./Cart";
 import { CloseButton } from "./Layout/CloseButton";
 import { useCart } from "../hooks/useCart";
+import { Contador } from "./Layout/Contador";
+
 
 
 export function Home({ user, setUser }) {
@@ -45,6 +47,7 @@ export function Home({ user, setUser }) {
           />
           <SectionPagos />
         </div>
+      
       </main>
 
       <Cart cart={cart} removeToCart={removeToCart} />

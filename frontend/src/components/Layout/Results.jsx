@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Contador } from "./Contador";
 
 export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart, removeToCart }) => {
   return filteredProducts.length ? (
@@ -22,7 +23,7 @@ export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart, re
                 <td>{product.name}</td>
                 <td>${product.unitPrice}</td>
                 <td>${product.wholesalePrice}</td>
-                <td>{product.quantity}</td>
+                <td><Contador/></td>
                 <td>{product.stock}</td>
                 <td>
                   {checkIsOnCart(product) ? (
