@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export const Results = ({ filteredProducts, search}) => {
+export const Results = ({ filteredProducts, search }) => {
   return filteredProducts.length ? (
     <section className="section-show-results">
       <div className="results-search">
@@ -25,7 +25,7 @@ export const Results = ({ filteredProducts, search}) => {
                 <td>{product.quantity}</td>
                 <td>{product.stock}</td>
                 <td>
-                  <button className="btn-eliminar">Eliminar Producto</button>
+                  <button className="btn-agregar">Agregar al ticket </button>
                 </td>
               </tr>
             ))}
@@ -35,13 +35,13 @@ export const Results = ({ filteredProducts, search}) => {
     </section>
   ) : (
     <section className="section-show-results">
-      <NoResults search={search}/>
+      <NoResults search={search} />
     </section>
   );
 };
 
 const NoResults = ({ search }) => {
-  const isInputEmpty= useRef(true);
+  const isInputEmpty = useRef(true);
 
   useEffect(() => {
     isInputEmpty.current = search === "";
@@ -50,12 +50,12 @@ const NoResults = ({ search }) => {
   return (
     <div className="no-results-container">
       {isInputEmpty.current ? (
-    <p>
-      Escribe el nombre/ID del producto que desea buscar...
-    </p>
-  ) : (
-    <p>No se encontraron resultados</p>
-  )}
+        <p>
+          Escribe el nombre/ID del producto que desea buscar...
+        </p>
+      ) : (
+        <p>No se encontraron resultados</p>
+      )}
     </div>
   )
 };

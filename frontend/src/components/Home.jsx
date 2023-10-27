@@ -39,7 +39,8 @@ export function Home({ user, setUser }) {
             <SectionPagos/>
         </div>
       </main>
-      <Cart/>
+      
+      <Cart />
     </>
   );
 }
