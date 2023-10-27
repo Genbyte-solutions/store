@@ -366,3 +366,11 @@ section ul {
     font-size: 16px;
     transition: background-color 0.3s;
   }
+
+.btn{
+  margin: 5px;
+  padding: 5px 10px;
+  letter-spacing: 0;
+  transition: none;
+  font-size: 16px;
+}

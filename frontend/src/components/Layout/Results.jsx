@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export const Results = ({ filteredProducts, search }) => {
+export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart, removeToCart }) => {
   return filteredProducts.length ? (
     <section className="section-show-results">
       <div className="results-search">
@@ -25,7 +25,20 @@ export const Results = ({ filteredProducts, search }) => {
                 <td>{product.quantity}</td>
                 <td>{product.stock}</td>
                 <td>
-                  <button className="btn-agregar">Agregar al ticket </button>
+                  {checkIsOnCart(product) ? (
+                    <button
+                      className="btn btn-secondary"
+                    >
+                      Producto añadido
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => addToCart(product)}
+                      className="btn-agregar"
+                    >
+                      Agregar al ticket
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
