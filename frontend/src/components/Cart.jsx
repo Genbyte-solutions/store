@@ -1,35 +1,42 @@
-export function Cart() {
+
+
+export function Cart({cart, removeToCart}) {
+
   return (
-    <div className="cart">
+    cart.length
+    && (
+      <div className="cart">
       <h2>Ticket</h2>
     <table>
       <thead>
         <tr>
+        <th>Numero de identificacion</th>
           <th>Nombre</th>
           <th>Precio por Unidad</th>
+          <th>Precio por mayor</th>
+          <th>Cantidad</th>
+          <th>Stock</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Producto 1</td>
-          <td>$10.00</td>
-          <td><button class="btn-eliminar" >Eliminar Producto</button></td>
-        </tr>
-        <tr>
-          <td>Producto 2</td>
-          <td>$15.00</td>
-          <td><button class="btn-eliminar" >Eliminar Producto</button></td>
-        </tr>
-        <tr>
-          <td>Producto 3</td>
-          <td>$20.00</td>
-          <td><button class="btn-eliminar">Eliminar Producto</button></td>
-        </tr>
-
+        {cart.map((product)=>(
+          <tr key={product.id}>
+            <td>{product.id}</td>
+            <td>{product.name}</td>
+            <td>${product.unitPrice}</td>
+            <td>{product.wholesalePrice}</td>
+            <td>{product.quantity}</td>
+            <td>{product.stock}</td>
+            <td>
+              <button onClick={()=> removeToCart(product.id)} class="btn-eliminar">Eliminar Producto</button>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
     </div>
-
+    )
   )
-}
+}    
+    
