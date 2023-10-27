@@ -1,9 +1,10 @@
-package com.example.demo.services;
+package com.example.demo.service;
 
+import com.example.demo.model.dto.UserDto;
 import com.example.demo.model.entities.User;
 
 public interface IUser {
-    User save(User user);
+    User save(UserDto user);
 
     User findByUsernameAndPassword(String username, String password);
 }

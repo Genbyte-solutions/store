@@ -1,11 +1,12 @@
-package com.example.demo.services;
+package com.example.demo.service;
 
+import com.example.demo.model.dto.CategoryDto;
 import com.example.demo.model.entities.Category;
 
 import java.util.List;
 
 public interface ICategory {
-    Category save(Category category);
+    Category save(CategoryDto category);
 
     Category findByName(String categoryName);
 

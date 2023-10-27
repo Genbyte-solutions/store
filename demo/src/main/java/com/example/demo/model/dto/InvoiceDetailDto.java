@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.model.dto;
 
 import com.example.demo.model.entities.Invoice;
 import com.example.demo.model.entities.Product;

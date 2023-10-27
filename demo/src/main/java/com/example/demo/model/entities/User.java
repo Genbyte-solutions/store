@@ -2,15 +2,13 @@ package com.example.demo.model.entities;
 
 import com.example.demo.model.enums.Rol;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 @Entity
 @Table(name = "users")
 public class User {

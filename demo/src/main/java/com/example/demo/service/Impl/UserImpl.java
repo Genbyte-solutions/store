@@ -1,8 +1,9 @@
-package com.example.demo.services.Impl;
+package com.example.demo.service.Impl;
 
+import com.example.demo.model.dto.UserDto;
 import com.example.demo.model.entities.User;
 import com.example.demo.repository.UserRespository;
-import com.example.demo.services.IUser;
+import com.example.demo.service.IUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,12 @@ public class UserImpl implements IUser {
 
     @Transactional
     @Override
-    public User save(User user) {
+    public User save(UserDto userDto) {
+        User user = User.builder()
+                .username(userDto.getUsername())
+                .password(userDto.getPassword())
+                .rol(userDto.getRol())
+                .build();
         return userRespository.save(user);
     }
 
