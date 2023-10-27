@@ -8,10 +8,16 @@ import java.io.Serializable;
 @Data
 @ToString
 @Builder
-@AllArgsConstructor
 public class UserDto implements Serializable {
     private Integer userId;
     private String username;
     private String password;
     private Rol rol;
+
+    public UserDto(Integer userId, String username, String password, Rol rol) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.rol = rol;
+    }
 }

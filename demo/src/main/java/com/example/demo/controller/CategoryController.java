@@ -27,19 +27,16 @@ public class CategoryController {
 
     @PostMapping("/category")
     public ResponseEntity<?> create(@RequestBody CategoryDto categoryDto) {
-        Category category = null;
-        category = categoryService.findByName(categoryDto.getName());
+        Category category = categoryService.findByName(categoryDto.getName());
 
         if (category != null) {
             return new ResponseEntity<>(ResponseMessage.builder()
-                    .message("This category has already exist")
+                    .message("This category already exist")
                     .build(), HttpStatus.CONFLICT);
         }
 
-        categoryDto = CategoryDto.builder()
-                .categoryId(category.getCategoryId())
-                .name(category.getName())
-                .build();
+        // converts the entity into dto
+        categoryDto = categoryMapper.toDTO(category);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("A new category has been added")
@@ -49,21 +46,23 @@ public class CategoryController {
 
     @GetMapping("/category")
     public ResponseEntity<?> findByName(@RequestParam("categoryName") String categoryName) {
-        Category response = null;
-        response = categoryService.findByName(categoryName);
+        Category category = categoryService.findByName(categoryName);
 
         logger.info(categoryName);
-        logger.info("category=> " + response);
+        logger.info("category=> " + category);
 
-        if (response == null) {
+        if (category == null) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("Category not found")
                     .build(), HttpStatus.NOT_FOUND);
         }
 
+        // converts the entity into dto
+        CategoryDto categoryDto = categoryMapper.toDTO(category);
+
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("")
-                .object(response)
+                .object(category)
                 .build(), HttpStatus.OK);
     }
 
@@ -86,8 +85,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/category/{id}")
-    public ResponseEntity<?> DeleteById(@PathVariable("id") String id) {
-        categoryService.deleteById(Integer.parseInt(id));
+    public ResponseEntity<?> DeleteById(@PathVariable("id") Integer id) {
+        categoryService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

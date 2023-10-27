@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.dto.UserDto;
 import com.example.demo.model.entities.User;
 import com.example.demo.model.payload.ResponseMessage;
@@ -13,20 +14,19 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final IUser userService;
+    private final UserMapper userMapper;
 
-    public UserController(IUser userService) {
+    public UserController(IUser userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody UserDto userDto) {
         User newUser = userService.save(userDto);
-        userDto = UserDto.builder()
-                .userId(newUser.getUserId())
-                .username(newUser.getUsername())
-                .password(newUser.getPassword())
-                .rol(newUser.getRol())
-                .build();
+
+        userDto = userMapper.toDTO(newUser);
+
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("A new user has been created")
                 .object(userDto)
@@ -35,12 +35,14 @@ public class UserController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody UserDto userRecibido) {
-        User session = userService.findByUsernameAndPassword(userRecibido.getUsername(), userRecibido.getPassword());
+        User user = userService.findByUsernameAndPassword(userRecibido.getUsername(), userRecibido.getPassword());
 
-        if (session != null) {
+        UserDto userDto = userMapper.toDTO(user);
+
+        if (user != null) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("Signed")
-                    .object(session)
+                    .object(userDto)
                     .build(), HttpStatus.OK);
         }
 

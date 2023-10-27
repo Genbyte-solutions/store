@@ -11,4 +11,10 @@ public class BranchDto {
     private Integer branchId;
     private String address;
     private String zipCode;
+
+    public BranchDto(Integer branchId, String address, String zipCode) {
+        this.branchId = branchId;
+        this.address = address;
+        this.zipCode = zipCode;
+    }
 }
