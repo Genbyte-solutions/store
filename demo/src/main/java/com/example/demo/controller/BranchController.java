@@ -33,7 +33,9 @@ public class BranchController {
     //Get all branches
     @GetMapping("/branches")
     public List<Branch> listBranch() {
-        return branchService.findAll();
+        List<Branch> branches = branchService.findAll();
+        logger.info("Branches obtained => " + branches);
+        return branches;
     }
 
     //Delete a branch by id
