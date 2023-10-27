@@ -120,22 +120,6 @@ section ul{
   box-shadow: 0 1px 2px #9e9d9d;
 }
 
-.btn-danger{
-    margin-left: 95%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 4%;
-    height: 18%;
-    color: white;
-    margin-bottom: 10px;
-}
-.btn-danger svg:hover{
-    stroke: black;
-    cursor: pointer;
-    color: black;
-}
-
 .section-general{
   display: flex;
   justify-content: space-between;
@@ -145,6 +129,7 @@ section ul{
 .section-general div{
   padding: 10px;
   border: 1px solid rgb(206, 201, 201);
+  margin: 20px;
 }
 
 .section-venta-stock{
@@ -156,7 +141,6 @@ section ul{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    justify-content: center;
     align-items: center;
 }
 
@@ -165,28 +149,26 @@ section ul{
   margin: 20px;
   padding: 10px;
   border-radius: 4px;
-  box-shadow: 0 1px 2px #9e9d9d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .section-venta-stock button{
   width: 200px;
 }
 
-.shadow{
-    border: none;
-}
-
 .search-bar {
+    min-height: 130px;
     display: flex;
     justify-content: center;
-    flex-direction: column;
     align-items: center;
-    margin: 10px 0;
     text-align: center;
   }
+
   .search-bar label{
-    font-weight: bold;
-    font-size: 19px;
+    font-weight: 300;
+    font-size: 25px;
     margin: 15px;
   }
   .search-input {
@@ -270,11 +252,21 @@ section ul{
 
   .container section{
     min-height: 130px;
-    border-top: solid 1px #ddd;
+    border-top: 1px solid #ddd ;
   }
 
   .section-show-results{
     padding: 40px;
+  }
+
+  .no-results-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .no-results-container p{
+    text-decoration: underline;
   }
 
   .section-pagos div{
@@ -284,3 +276,28 @@ section ul{
     align-items: center;
     gap: 20px;
   }
+
+  /* botones */
+
+  .btn, .btn-outline-dark {
+    border-width: 2px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin: 20px 0; /* Margen para los botones */
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.btn:hover, .btn-outline-dark:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.close-button-container{
+ display: flex;
+ width: 100%;
+ justify-content: flex-end;
+}
