@@ -20,6 +20,7 @@ export function Home({ user, setUser }) {
   const { search, setSearch } = useSearch();
   const { cart, addToCart, removeToCart, checkIsOnCart , restQuantity, sumQuantity} = useCart();
   const [inputValue, setInputValue] = useState(''); 
+  const [show, setShow] = useState(true);
 
   const handleLogout = () => {
     setUser([]);
@@ -29,11 +30,11 @@ export function Home({ user, setUser }) {
 
   return (
     <>
-      <MyModal setInputValue={setInputValue} /> 
+      <MyModal setInputValue={setInputValue} show={show} setShow={setShow}/> 
       <main className="main">
         <CloseButton handleLogout={handleLogout} />
         <div className="container">
-          <SeccionGeneral user={user} inputValue={inputValue} /> 
+          <SeccionGeneral user={user} inputValue={inputValue} setShow={setShow}/> 
           <Ventas />
           <Busqueda
             products={productsList}

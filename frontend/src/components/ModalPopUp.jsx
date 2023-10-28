@@ -3,8 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-function MyModal({ setInputValue }) {
-  const [show, setShow] = useState(true);
+function MyModal({ setInputValue, show, setShow }) {
   const [inputValue, setInputState] = useState('');
 
   const handleClose = () => {
