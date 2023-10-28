@@ -2,26 +2,15 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
-export const Contador = () => {
-  const [contador, setContador] = useState(1);
-
-  const sumar = () => {
-    setContador(contador + 1);
-  }
-
-  const restar = () => {
-    if (contador > 1) {
-      setContador(contador - 1);
-    }
-  }
+export const Contador = ({product, restQuantity, sumQuantity}) => {
 
   return (
     <div className="contador">
-      <button className="btn__rest" onClick={restar}>
+      <button className="btn__rest" onClick={() => restQuantity(product)}>
         <FontAwesomeIcon icon={faMinus} />
       </button>
-      <p>{contador}</p>
-      <button className="btn__add" onClick={sumar}>
+      <p>{product.quantity}</p>
+      <button className="btn__add" onClick={() => sumQuantity(product)} >
         <FontAwesomeIcon icon={faPlus} />
       </button>
     </div>

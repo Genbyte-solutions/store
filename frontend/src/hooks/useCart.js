@@ -22,5 +22,23 @@ export function useCart(){
     ) )
   }
 
-  return {cart, setCart, removeToCart, addToCart, checkIsOnCart}
+  const restQuantity = (product) => {
+    const newCart = [...cart]
+    const index = newCart.findIndex((pro) => product.id === pro.id)
+    if(product.quantity > 1){
+      newCart[index].quantity -= 1;
+      setCart(newCart);
+    }
+  }
+
+  const sumQuantity = (product) => {
+    const newCart = [...cart];
+    const index = newCart.findIndex((pro) => product.id === pro.id);
+    if (product.quantity) {
+      newCart[index].quantity += 1;
+      setCart(newCart);
+    }
+  };
+
+  return {cart, setCart, removeToCart, addToCart, checkIsOnCart, restQuantity, sumQuantity}
 }
