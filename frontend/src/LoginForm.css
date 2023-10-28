@@ -111,7 +111,9 @@ section ul {
   display: flex;
   flex-direction: column;
 }
-
+.valor__caja{
+  color: green;
+}
 .section-general {
   display: flex;
   justify-content: space-between;
