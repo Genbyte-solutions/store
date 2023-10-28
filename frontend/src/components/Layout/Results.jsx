@@ -23,7 +23,7 @@ export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart, re
                 <td>{product.name}</td>
                 <td>${product.unitPrice}</td>
                 <td>${product.wholesalePrice}</td>
-                <td><Contador/></td>
+                <td>{product.quantity}</td>
                 <td>{product.stock}</td>
                 <td>
                   {checkIsOnCart(product) ? (
