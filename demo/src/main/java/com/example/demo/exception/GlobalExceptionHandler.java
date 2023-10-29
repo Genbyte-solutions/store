@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleDataAccessException(DataAccessException e) {
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message(e.getMessage())
-                .build(), HttpStatus.INTERNAL_SERVER_ERROR);
+                .build(), HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ExceptionHandler(Exception.class)

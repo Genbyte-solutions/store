@@ -3,7 +3,6 @@ package com.example.demo.mapper;
 import com.example.demo.model.dto.CategoryDto;
 import com.example.demo.model.entities.Category;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 

@@ -21,4 +21,15 @@ public class ProductDto {
     private Integer stock;
     private Category fkCategoryId;
     private Branch fkBranchId;
+
+    public ProductDto(Integer productId, String sku, BigDecimal unitPrice, String brand, Size size, Integer stock, Category fkCategoryId, Branch fkBranchId) {
+        this.productId = productId;
+        this.sku = sku;
+        this.unitPrice = unitPrice;
+        this.brand = brand;
+        this.size = size;
+        this.stock = stock;
+        this.fkCategoryId = fkCategoryId;
+        this.fkBranchId = fkBranchId;
+    }
 }

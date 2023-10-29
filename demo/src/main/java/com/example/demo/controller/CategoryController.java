@@ -27,13 +27,15 @@ public class CategoryController {
 
     @PostMapping("/category")
     public ResponseEntity<?> create(@RequestBody CategoryDto categoryDto) {
-        Category category = categoryService.findByName(categoryDto.getName());
+        Category findCategory = categoryService.findByName(categoryDto.getName());
 
-        if (category != null) {
+        if (findCategory != null) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("This category already exist")
                     .build(), HttpStatus.CONFLICT);
         }
+
+        Category category = categoryService.save(categoryDto);
 
         // converts the entity into dto
         categoryDto = categoryMapper.toDTO(category);
@@ -61,7 +63,6 @@ public class CategoryController {
         CategoryDto categoryDto = categoryMapper.toDTO(category);
 
         return new ResponseEntity<>(ResponseMessage.builder()
-                .message("")
                 .object(category)
                 .build(), HttpStatus.OK);
     }
@@ -73,7 +74,6 @@ public class CategoryController {
         if (categories.isEmpty()) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("No records found")
-                    .object(categories)
                     .build(), HttpStatus.NOT_FOUND);
         }
 
@@ -85,7 +85,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/category/{id}")
-    public ResponseEntity<?> DeleteById(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteById(@PathVariable("id") Integer id) {
         categoryService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
