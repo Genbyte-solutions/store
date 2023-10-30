@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.exception.ResourceNotFound;
 import com.example.demo.mapper.BranchMapper;
 import com.example.demo.model.dto.BranchDto;
 import com.example.demo.model.entity.Branch;
@@ -12,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1")
@@ -31,12 +28,21 @@ public class BranchController {
 
     //Save branch
     @PostMapping("/branch")
-    public ResponseEntity<?> createBranch(@RequestBody Branch branch) {
-        logger.info("Branch to create => " + branch);
+    public ResponseEntity<?> createBranch(@RequestBody BranchDto branchDto) {
+        Branch findBranch = branchService.findByAddress(branchDto.getAddress());
 
-        Branch newBranch = branchService.save(branch);
+        logger.info("branchDTO" + branchDto);
+        logger.info("Branch to create => " + findBranch);
 
-        BranchDto branchDto = branchMapper.toDTO(newBranch);
+        if(findBranch != null){
+            return new ResponseEntity<>(ResponseMessage.builder()
+                    .message("This branch already exist")
+                    .build(), HttpStatus.CONFLICT);
+        }
+
+        Branch newBranch = branchService.save(branchDto);
+
+        branchDto = branchMapper.toDTO(newBranch);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("A new branch has been added")
@@ -46,7 +52,7 @@ public class BranchController {
 
     //Get all branches
     @GetMapping("/branches")
-    public ResponseEntity<?> listBranch() {
+    public ResponseEntity<?> findAll() {
         List<Branch> branches = branchService.findAll();
         logger.info("Branches obtained => " + branches);
 
@@ -65,16 +71,12 @@ public class BranchController {
 
     //Delete a branch by id
     @DeleteMapping("/branch/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteBranchById(
+    public ResponseEntity<?> deleteBranchById(
             @PathVariable("id") Integer id
     ) {
-        Branch branch = branchService.findById(id);
-        if (branch == null) {
-            throw new ResourceNotFound("Branch with id '" + id + "' not found");
-        }
-        branchService.deleteById(branch.getBranchId());
-        Map<String, Boolean> res = new HashMap<>();
-        res.put("Branch deleted", Boolean.TRUE);
-        return ResponseEntity.ok(res);
+        branchService.deleteById(id);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
+
 }
