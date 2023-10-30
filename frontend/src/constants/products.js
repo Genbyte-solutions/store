@@ -4,7 +4,7 @@ export const products = [
     name: "Zapatilla Nike ",
     unitPrice: 10,
     wholesalePrice: 8,
-    quantity: 100,
+    quantity: 1,
     stock: 50,
   },
   {
@@ -12,7 +12,7 @@ export const products = [
     name: "Zapatilla Adidas",
     unitPrice: 15,
     wholesalePrice: 12,
-    quantity: 80,
+    quantity: 1,
     stock: 30,
   },
 
@@ -21,7 +21,7 @@ export const products = [
     name: "Remera A+",
     unitPrice: 15,
     wholesalePrice: 12,
-    quantity: 80,
+    quantity: 1,
     stock: 30,
   },
 
@@ -30,7 +30,7 @@ export const products = [
     name: "Pelota de Basquet",
     unitPrice: 15,
     wholesalePrice: 12,
-    quantity: 80,
+    quantity: 1,
     stock: 30,
   },
   {
@@ -38,7 +38,7 @@ export const products = [
     name: "Camiseta de Argentina",
     unitPrice: 15,
     wholesalePrice: 12,
-    quantity: 80,
+    quantity: 1,
     stock: 30,
   },
 ];

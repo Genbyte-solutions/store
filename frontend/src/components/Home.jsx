@@ -18,8 +18,8 @@ import MyModal from "./ModalPopUp";
 export function Home({ user, setUser }) {
   const { filteredProducts, setFilteredProducts } = useFilter();
   const { search, setSearch } = useSearch();
-  const { cart, addToCart, removeToCart, checkIsOnCart , restQuantity, sumQuantity} = useCart();
-  const [inputValue, setInputValue] = useState(''); 
+  const { cart, addToCart, removeToCart, checkIsOnCart, restQuantity, sumQuantity } = useCart();
+  const [inputValue, setInputValue] = useState('');
   const [show, setShow] = useState(true);
 
   const handleLogout = () => {
@@ -30,11 +30,11 @@ export function Home({ user, setUser }) {
 
   return (
     <>
-      <MyModal setInputValue={setInputValue} show={show} setShow={setShow}/> 
+      <MyModal setInputValue={setInputValue} show={show} setShow={setShow} />
       <main className="main">
         <CloseButton handleLogout={handleLogout} />
         <div className="container">
-          <SeccionGeneral user={user} inputValue={inputValue} setShow={setShow}/> 
+          <SeccionGeneral user={user} inputValue={inputValue} setShow={setShow} />
           <Ventas />
           <Busqueda
             products={productsList}
@@ -49,15 +49,15 @@ export function Home({ user, setUser }) {
             checkIsOnCart={checkIsOnCart}
             removeToCart={removeToCart}
           />
+          <Cart
+            cart={cart}
+            removeToCart={removeToCart}
+            restQuantity={restQuantity}
+            sumQuantity={sumQuantity}
+          />
           <SectionPagos />
         </div>
       </main>
-      <Cart
-        cart={cart}
-        removeToCart={removeToCart}
-        restQuantity={restQuantity}
-        sumQuantity={sumQuantity}
-      />
     </>
   );
 }

@@ -350,17 +350,17 @@ section ul {
 /* TICKET */
 .cart {
   text-align: center;
-  margin-top: 20px;
-  margin-left: 68px;
-  margin-bottom: 20px;
-  max-width: 1350px;
+  /* margin-top: 20px; */
+  /* margin-left: 68px; */
+  /* margin-bottom: 20px; */
+  max-width: 1500px;
   background-color: #706b6b;
   color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   justify-content: center;
-  margin: 40px auto;
+  /* margin: 40px auto; */
   
   
 }
@@ -368,11 +368,19 @@ section ul {
   padding: 10px;
 }
 .cart table {
-  margin: 10px;
+
+  width : 83vw;
+
 }
-.cart table  tbody{
+.cart table thead tr th{
+ padding: 10px;
+}
+.cart table tbody tr td{
+  padding: 10px;
+}
+/* .cart table  tbody{
   margin: 10vw;
-}
+} */
 .btn-eliminar {
   margin: 5px;
     background-color: #dc3545;
