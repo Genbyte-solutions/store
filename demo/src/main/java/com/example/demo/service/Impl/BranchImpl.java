@@ -1,6 +1,6 @@
 package com.example.demo.service.Impl;
 
-import com.example.demo.model.entities.Branch;
+import com.example.demo.model.entity.Branch;
 import com.example.demo.repository.BranchRepository;
 import com.example.demo.service.IBranch;
 import org.springframework.stereotype.Service;
@@ -35,6 +35,7 @@ public class BranchImpl implements IBranch {
 
     @Override
     public Branch findById(Integer idBranch) {
+
         return branchRepository.findById(idBranch).orElse(null);
     }
 }

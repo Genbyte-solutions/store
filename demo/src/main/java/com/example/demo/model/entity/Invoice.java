@@ -1,4 +1,4 @@
-package com.example.demo.model.entities;
+package com.example.demo.model.entity;
 
 import com.example.demo.model.enums.PaymentMethod;
 import jakarta.persistence.*;
@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -34,6 +35,9 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "fk_branch_id", referencedColumnName = "branch_id", nullable = false)
     private Branch fkBranchId;
+
+    @OneToMany(mappedBy = "fkInvoiceId")
+    List<InvoiceDetail> InvoiceDetails;
 
     @CreationTimestamp
     @Column(name = "emitted_at", updatable = false)

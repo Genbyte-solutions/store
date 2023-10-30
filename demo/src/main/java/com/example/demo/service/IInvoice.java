@@ -1,10 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.model.dto.InvoiceDto;
-import com.example.demo.model.entities.Invoice;
+import com.example.demo.model.entity.Invoice;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IInvoice {
 
@@ -12,7 +11,7 @@ public interface IInvoice {
 
     List<Invoice> findByPaymentMethod(String paymentMethod);
 
-    Optional<Invoice> findById(Integer id);
+    Invoice findById(Integer id);
 
     List<Invoice> findAll();
 

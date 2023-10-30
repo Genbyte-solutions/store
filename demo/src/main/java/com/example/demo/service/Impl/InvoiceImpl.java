@@ -2,13 +2,12 @@ package com.example.demo.service.Impl;
 
 import com.example.demo.mapper.InvoiceMapper;
 import com.example.demo.model.dto.InvoiceDto;
-import com.example.demo.model.entities.Invoice;
+import com.example.demo.model.entity.Invoice;
 import com.example.demo.repository.InvoiceRepository;
 import com.example.demo.service.IInvoice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class InvoiceImpl implements IInvoice {
@@ -31,12 +30,12 @@ public class InvoiceImpl implements IInvoice {
 
     @Override
     public List<Invoice> findByPaymentMethod(String paymentMethod) {
-        return invoiceRepository.findByPaymentMethod(paymentMethod);
+        return invoiceRepository.findAllByPaymentMethod(paymentMethod);
     }
 
     @Override
-    public Optional<Invoice> findById(Integer id) {
-        return invoiceRepository.findById(id);
+    public Invoice findById(Integer id) {
+        return invoiceRepository.findById(id).orElse(null);
     }
 
     @Override

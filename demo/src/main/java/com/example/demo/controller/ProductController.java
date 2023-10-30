@@ -2,25 +2,28 @@ package com.example.demo.controller;
 
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.dto.ProductDto;
-import com.example.demo.model.entities.Product;
+import com.example.demo.model.entity.Category;
+import com.example.demo.model.entity.Product;
 import com.example.demo.model.payload.ResponseMessage;
+import com.example.demo.service.ICategory;
 import com.example.demo.service.IProduct;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1")
 public class ProductController {
 
     private final IProduct productService;
+    private final ICategory categoryService;
     private final ProductMapper productMapper;
 
-    public ProductController(IProduct productService, ProductMapper productMapper) {
+    public ProductController(IProduct productService, ICategory categoryService, ProductMapper productMapper) {
         this.productService = productService;
+        this.categoryService = categoryService;
         this.productMapper = productMapper;
     }
 
@@ -33,6 +36,14 @@ public class ProductController {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("This product already exist")
                     .build(), HttpStatus.CONFLICT);
+        }
+
+        Category category = categoryService.findById(productDto.getFkCategoryId().getCategoryId());
+
+        if (category == null) {
+            return new ResponseEntity<>(ResponseMessage.builder()
+                    .message("Category not found")
+                    .build(), HttpStatus.NOT_FOUND);
         }
 
         Product product = productService.save(productDto);
@@ -64,9 +75,26 @@ public class ProductController {
                 .build(), HttpStatus.OK);
     }
 
-    @GetMapping("/Products")
+    @GetMapping("/products")
     public ResponseEntity<?> findAll() {
         List<Product> products = productService.findAll();
+
+        if (products.isEmpty()) {
+            return new ResponseEntity<>(ResponseMessage.builder()
+                    .message("No records found")
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+
+        List<ProductDto> productDtos = productMapper.toDTOs(products);
+
+        return new ResponseEntity<>(ResponseMessage.builder()
+                .object(productDtos)
+                .build(), HttpStatus.OK);
+    }
+
+    @GetMapping("/products/{category}")
+    public ResponseEntity<?> findAllByCategory(@PathVariable("category") String category) {
+        List<Product> products = productService.findAllByCategory(category);
 
         if (products.isEmpty()) {
             return new ResponseEntity<>(ResponseMessage.builder()

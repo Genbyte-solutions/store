@@ -1,13 +1,14 @@
 package com.example.demo.model.dto;
 
-import com.example.demo.model.entities.Branch;
-import com.example.demo.model.entities.Category;
+import com.example.demo.model.entity.Branch;
+import com.example.demo.model.entity.Category;
 import com.example.demo.model.enums.Size;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @ToString
@@ -21,8 +22,9 @@ public class ProductDto {
     private Integer stock;
     private Category fkCategoryId;
     private Branch fkBranchId;
+    private List<InvoiceDetailDto> invoiceDetailDtos;
 
-    public ProductDto(Integer productId, String sku, BigDecimal unitPrice, String brand, Size size, Integer stock, Category fkCategoryId, Branch fkBranchId) {
+    public ProductDto(Integer productId, String sku, BigDecimal unitPrice, String brand, Size size, Integer stock, Category fkCategoryId, Branch fkBranchId, List<InvoiceDetailDto> invoiceDetailDtos) {
         this.productId = productId;
         this.sku = sku;
         this.unitPrice = unitPrice;
@@ -31,5 +33,6 @@ public class ProductDto {
         this.stock = stock;
         this.fkCategoryId = fkCategoryId;
         this.fkBranchId = fkBranchId;
+        this.invoiceDetailDtos = invoiceDetailDtos;
     }
 }

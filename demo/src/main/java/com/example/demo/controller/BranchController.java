@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.exception.ResourceNotFound;
 import com.example.demo.mapper.BranchMapper;
 import com.example.demo.model.dto.BranchDto;
-import com.example.demo.model.entities.Branch;
+import com.example.demo.model.entity.Branch;
 import com.example.demo.model.payload.ResponseMessage;
 import com.example.demo.service.IBranch;
 import org.slf4j.Logger;

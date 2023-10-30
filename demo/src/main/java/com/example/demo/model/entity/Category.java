@@ -1,10 +1,12 @@
-package com.example.demo.model.entities;
+package com.example.demo.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +22,7 @@ public class Category {
 
     @Column(name = "name", unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "fkCategoryId")
+    List<Product> products;
 }

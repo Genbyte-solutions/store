@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.dto.UserDto;
-import com.example.demo.model.entities.User;
+import com.example.demo.model.entity.User;
 import com.example.demo.model.payload.ResponseMessage;
 import com.example.demo.service.IUser;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.demo.model.entities;
+package com.example.demo.model.entity;
 
 import com.example.demo.model.enums.Size;
 import jakarta.persistence.*;
@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -46,6 +47,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "fk_branch_id", referencedColumnName = "branch_id", nullable = false)
     private Branch fkBranchId;
+
+    @OneToMany(mappedBy = "fkProductId")
+    private List<InvoiceDetail> invoiceDetails;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
