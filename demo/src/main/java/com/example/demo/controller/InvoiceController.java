@@ -1,35 +1,55 @@
 package com.example.demo.controller;
 
 import com.example.demo.mapper.InvoiceMapper;
+import com.example.demo.model.dto.InvoiceDetailDto;
 import com.example.demo.model.dto.InvoiceDto;
-import com.example.demo.model.entities.Invoice;
+import com.example.demo.model.entity.Branch;
+import com.example.demo.model.entity.Invoice;
 import com.example.demo.model.payload.ResponseMessage;
+import com.example.demo.service.IBranch;
+import com.example.demo.service.IInvoiceDetail;
 import com.example.demo.service.IInvoice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1")
 public class InvoiceController {
-
     private final IInvoice invoiceService;
+    private final IBranch branchService;
+    private final IInvoiceDetail invoiceDetailService;
     private final InvoiceMapper invoiceMapper;
 
-    public InvoiceController(IInvoice invoiceService, InvoiceMapper invoiceMapper) {
+    public InvoiceController(IInvoice invoiceService, IBranch branchService, IInvoiceDetail invoiceDetailService, InvoiceMapper invoiceMapper) {
         this.invoiceService = invoiceService;
+        this.branchService = branchService;
+        this.invoiceDetailService = invoiceDetailService;
         this.invoiceMapper = invoiceMapper;
     }
 
-
     @PostMapping("/invoice")
-    public ResponseEntity<?> create(@RequestBody InvoiceDto invoiceDto) {
+    public ResponseEntity<?> create(@RequestBody InvoiceDto invoiceDto, @RequestBody List<InvoiceDetailDto> invoiceDetailDtos) {
+
+        Branch branch = branchService.findById(invoiceDto.getFkBranchId().getBranchId());
+        if (branch == null) {
+            return new ResponseEntity<>(ResponseMessage.builder()
+                    .message("Branch not found")
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+
+        if (invoiceDetailDtos == null) {
+            return new ResponseEntity<>(ResponseMessage.builder()
+                    .message("It is not possible to generate an invoice without products")
+                    .build(), HttpStatus.BAD_REQUEST);
+        }
 
         Invoice invoice = invoiceService.save(invoiceDto);
+        for (InvoiceDetailDto invoiceDetailDto : invoiceDetailDtos) {
+            invoiceDetailService.save(invoiceDetailDto);
+        }
 
         invoiceDto = invoiceMapper.toDTO(invoice);
 
@@ -43,15 +63,15 @@ public class InvoiceController {
     @GetMapping("/invoice/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
 
-        Optional<Invoice> invoice = invoiceService.findById(id);
+        Invoice invoice = invoiceService.findById(id);
 
-        if (invoice.isEmpty()) {
+        if (invoice == null) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("Invoice not found")
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        InvoiceDto invoiceDto = invoiceMapper.toDTO(invoice.get());
+        InvoiceDto invoiceDto = invoiceMapper.toDTO(invoice);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .object(invoiceDto)

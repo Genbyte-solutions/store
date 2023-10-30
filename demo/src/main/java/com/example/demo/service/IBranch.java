@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.entities.Branch;
+import com.example.demo.model.entity.Branch;
 
 import java.util.List;
 

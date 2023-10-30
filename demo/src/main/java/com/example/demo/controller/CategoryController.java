@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.mapper.CategoryMapper;
 import com.example.demo.model.dto.CategoryDto;
-import com.example.demo.model.entities.Category;
+import com.example.demo.model.entity.Category;
 import com.example.demo.model.payload.ResponseMessage;
 import com.example.demo.service.ICategory;
 import org.slf4j.Logger;
@@ -77,6 +77,7 @@ public class CategoryController {
                     .build(), HttpStatus.NOT_FOUND);
         }
 
+        // not working
         List<CategoryDto> categoryDtos = categoryMapper.toDTOs(categories);
 
         return new ResponseEntity<>(ResponseMessage.builder()

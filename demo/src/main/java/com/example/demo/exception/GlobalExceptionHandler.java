@@ -2,6 +2,7 @@ package com.example.demo.exception;
 
 import com.example.demo.model.payload.ResponseMessage;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +23,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message(e.getMessage())
                 .build(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public ResponseEntity<?> handleEmptyResultDataAccessException(EmptyResultDataAccessException e) {
+        return new ResponseEntity<>(ResponseMessage.builder()
+                .message(e.getMessage())
+                .build(), HttpStatus.NOT_FOUND);
     }
 
 }

@@ -2,7 +2,9 @@ package com.example.demo.service.Impl;
 
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.dto.ProductDto;
-import com.example.demo.model.entities.Product;
+import com.example.demo.model.entity.Category;
+import com.example.demo.model.entity.Product;
+import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.IProduct;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,12 @@ import java.util.List;
 public class ProductImpl implements IProduct {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
 
-    public ProductImpl(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductImpl(ProductRepository productRepository, CategoryRepository categoryRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
         this.productMapper = productMapper;
     }
 
@@ -29,6 +33,15 @@ public class ProductImpl implements IProduct {
     @Override
     public Product findBySku(String sku) {
         return productRepository.findBySku(sku);
+    }
+
+    @Override
+    public List<Product> findAllByCategory(String category) {
+
+        Category findCategory = categoryRepository.findByName(category.toLowerCase());
+        if (findCategory == null) return null;
+
+        return productRepository.findAllByFkCategoryId(findCategory);
     }
 
     @Override

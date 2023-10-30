@@ -1,9 +1,11 @@
 package com.example.demo.model.dto;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
+@Accessors(chain = true)
 @Data
 @ToString
 @Builder

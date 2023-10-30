@@ -1,9 +1,11 @@
-package com.example.demo.model.entities;
+package com.example.demo.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,4 +23,10 @@ public class Branch {
 
     @Column(name = "zip_code")
     private String zipCode;
+
+    @OneToMany(mappedBy = "fkBranchId")
+    List<Invoice> invoices;
+
+    @OneToMany(mappedBy = "fkBranchId")
+    List<Product> products;
 }

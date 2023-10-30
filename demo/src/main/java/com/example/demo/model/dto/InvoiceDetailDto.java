@@ -1,12 +1,13 @@
 package com.example.demo.model.dto;
 
-import com.example.demo.model.entities.Invoice;
-import com.example.demo.model.entities.Product;
+import com.example.demo.model.entity.Invoice;
+import com.example.demo.model.entity.Product;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @ToString

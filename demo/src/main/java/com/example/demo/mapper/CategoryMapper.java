@@ -1,15 +1,30 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.dto.CategoryDto;
-import com.example.demo.model.entities.Category;
+import com.example.demo.model.entity.Category;
 import org.mapstruct.Mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface CategoryMapper {
+public abstract class CategoryMapper {
 
-    CategoryDto toDTO(Category category);
+    public abstract CategoryDto toDTO(Category category);
 
-    List<CategoryDto> toDTOs(List<Category> categories);
+    // implemented by bingAI
+    public List<CategoryDto> toDTOs(List<Category> categories) {
+        if (categories == null) {
+            return null;
+        }
+
+        List<CategoryDto> list = new ArrayList<>(categories.size());
+        for (Category category : categories) {
+            list.add(toDTO(category));
+        }
+
+        return list;
+    }
+
+    public abstract Category toEntity(CategoryDto categoryDto);
 }

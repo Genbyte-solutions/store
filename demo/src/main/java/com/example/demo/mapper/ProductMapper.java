@@ -1,17 +1,28 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.dto.ProductDto;
-import com.example.demo.model.entities.Product;
+import com.example.demo.model.entity.Product;
 import org.mapstruct.Mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface ProductMapper {
+public abstract class ProductMapper {
 
-    ProductDto toDTO(Product product);
+    public abstract ProductDto toDTO(Product product);
 
-    List<ProductDto> toDTOs(List<Product> products);
+    public List<ProductDto> toDTOs(List<Product> products) {
+        if (products == null) {
+            return null;
+        }
 
-    Product toEntity(ProductDto productDto);
+        List<ProductDto> list = new ArrayList<>(products.size());
+        for (Product product : products) {
+            list.add(toDTO(product));
+        }
+        return list;
+    }
+
+    public abstract Product toEntity(ProductDto productDto);
 }

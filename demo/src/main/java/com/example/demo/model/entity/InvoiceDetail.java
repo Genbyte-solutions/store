@@ -1,8 +1,9 @@
-package com.example.demo.model.entities;
+package com.example.demo.model.entity;
 
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "invoice_details")
 public class InvoiceDetail {
     @Id
