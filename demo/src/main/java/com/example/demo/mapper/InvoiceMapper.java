@@ -16,7 +16,7 @@ public abstract class InvoiceMapper {
             return null;
         }
 
-        List<InvoiceDto> list = new ArrayList<>(invoices.size());
+        List<InvoiceDto> list = new ArrayList<>();
 
         for (Invoice invoice : invoices) {
             list.add(toDTO(invoice));

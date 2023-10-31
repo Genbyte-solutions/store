@@ -18,7 +18,7 @@ public abstract class CategoryMapper {
             return null;
         }
 
-        List<CategoryDto> list = new ArrayList<>(categories.size());
+        List<CategoryDto> list = new ArrayList<>();
         for (Category category : categories) {
             list.add(toDTO(category));
         }
