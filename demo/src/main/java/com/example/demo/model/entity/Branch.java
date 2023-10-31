@@ -23,10 +23,4 @@ public class Branch {
 
     @Column(name = "zip_code")
     private String zipCode;
-
-    @OneToMany(mappedBy = "fkBranchId")
-    List<Invoice> invoices;
-
-    @OneToMany(mappedBy = "fkBranchId")
-    List<Product> products;
 }

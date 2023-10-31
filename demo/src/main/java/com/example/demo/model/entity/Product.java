@@ -41,15 +41,8 @@ public class Product {
     private Integer stock;
 
     @ManyToOne
-    @JoinColumn(name = "fk_category_id", referencedColumnName = "category_id")
-    private Category fkCategoryId;
-
-    @ManyToOne
     @JoinColumn(name = "fk_branch_id", referencedColumnName = "branch_id", nullable = false)
     private Branch fkBranchId;
-
-    @OneToMany(mappedBy = "fkProductId")
-    private List<InvoiceDetail> invoiceDetails;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

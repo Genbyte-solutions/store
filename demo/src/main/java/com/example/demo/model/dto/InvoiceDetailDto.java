@@ -16,14 +16,12 @@ public class InvoiceDetailDto {
     private Integer invoiceDetailId;
     private Integer quantity;
     private BigDecimal pricePerQuantity;
-    private Invoice fkInvoiceId;
     private Product fkProductId;
 
-    public InvoiceDetailDto(Integer invoiceDetailId, Integer quantity, BigDecimal pricePerQuantity, Invoice fkInvoiceId, Product fkProductId) {
+    public InvoiceDetailDto(Integer invoiceDetailId, Integer quantity, BigDecimal pricePerQuantity, Product fkProductId) {
         this.invoiceDetailId = invoiceDetailId;
         this.quantity = quantity;
         this.pricePerQuantity = pricePerQuantity;
-        this.fkInvoiceId = fkInvoiceId;
         this.fkProductId = fkProductId;
     }
 }

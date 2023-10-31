@@ -11,8 +11,6 @@ public interface IProduct {
 
     Product findBySku(String productSku);
 
-    List<Product> findAllByCategory(String category);
-
     List<Product> findAll();
 
     void deleteById(Integer id);

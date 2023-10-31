@@ -32,10 +32,6 @@ public class Invoice {
     @Column(name = "total", nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_branch_id", referencedColumnName = "branch_id", nullable = false)
-    private Branch fkBranchId;
-
     @OneToMany(mappedBy = "fkInvoiceId")
     List<InvoiceDetail> InvoiceDetails;
 

@@ -1,8 +1,6 @@
 package com.example.demo.mapper;
 
-import com.example.demo.model.dto.CategoryDto;
 import com.example.demo.model.dto.InvoiceDetailDto;
-import com.example.demo.model.entity.Category;
 import com.example.demo.model.entity.InvoiceDetail;
 import org.mapstruct.Mapper;
 
