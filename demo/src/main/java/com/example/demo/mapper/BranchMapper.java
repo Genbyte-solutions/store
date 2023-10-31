@@ -16,7 +16,7 @@ public abstract class BranchMapper {
             return null;
         }
 
-        List<BranchDto> list = new ArrayList<>(branches.size());
+        List<BranchDto> list = new ArrayList<>();
 
         for (Branch branch : branches) {
             list.add(toDTO(branch));

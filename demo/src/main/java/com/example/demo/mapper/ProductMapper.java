@@ -17,7 +17,7 @@ public abstract class ProductMapper {
             return null;
         }
 
-        List<ProductDto> list = new ArrayList<>(products.size());
+        List<ProductDto> list = new ArrayList<>();
         for (Product product : products) {
             list.add(toDTO(product));
         }
