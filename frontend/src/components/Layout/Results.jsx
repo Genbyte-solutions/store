@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Contador } from "./Contador";
 
-export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart, removeToCart }) => {
+export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart}) => {
   return filteredProducts.length ? (
-    <section className="section-show-results">
+    <div className="section-show-results">
       <div className="results-search">
         <table className="product-table">
           <thead>
@@ -46,11 +46,11 @@ export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart, re
           </tbody>
         </table>
       </div>
-    </section>
+    </div>
   ) : (
-    <section className="section-show-results">
+    <div className="section-show-results">
       <NoResults search={search} />
-    </section>
+    </div>
   );
 };
 
@@ -68,7 +68,7 @@ const NoResults = ({ search }) => {
           Escribe el nombre/ID del producto que desea buscar...
         </p>
       ) : (
-        <p>No se encontraron resultados</p>
+        <p className="search-error">No se encontraron resultados</p>
       )}
     </div>
   )
