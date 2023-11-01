@@ -25,5 +25,11 @@ public abstract class InvoiceMapper {
         return list;
     }
 
-    public abstract Invoice toEntity(InvoiceDto invoiceDto);
+    public Invoice toEntity(InvoiceDto invoiceDto) {
+        return Invoice.builder()
+                .paymentMethod(invoiceDto.getPaymentMethod())
+                .discount(invoiceDto.getDiscount())
+                .total(invoiceDto.getTotal())
+                .build();
+    }
 }

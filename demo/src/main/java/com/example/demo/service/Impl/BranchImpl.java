@@ -22,6 +22,7 @@ public class BranchImpl implements IBranch {
         this.branchMapper = branchMapper;
     }
 
+    @Transactional
     @Override
     public Branch save(BranchDto branchDto) {
         Branch branch = branchMapper.toEntity(branchDto);
@@ -34,11 +35,13 @@ public class BranchImpl implements IBranch {
         return (List<Branch>) branchRepository.findAll();
     }
 
+    @Transactional
     @Override
     public void deleteById(Integer id) {
         branchRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Branch findById(Integer idBranch) {
 

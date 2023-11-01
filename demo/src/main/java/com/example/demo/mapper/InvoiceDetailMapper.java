@@ -1,7 +1,9 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.dto.InvoiceDetailDto;
+import com.example.demo.model.entity.Invoice;
 import com.example.demo.model.entity.InvoiceDetail;
+import com.example.demo.model.entity.Product;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
@@ -24,5 +26,12 @@ public abstract class InvoiceDetailMapper {
         return list;
     }
 
-    public abstract InvoiceDetail toEntity(InvoiceDetailDto invoiceDetailDto);
+    public InvoiceDetail toEntity(InvoiceDetailDto invoiceDetailDto, Product product, Invoice invoice) {
+        return InvoiceDetail.builder()
+                .quantity(invoiceDetailDto.getQuantity())
+                .pricePerQuantity(invoiceDetailDto.getPricePerQuantity())
+                .fkProductId(product)
+                .fkInvoiceId(invoice)
+                .build();
+    }
 }

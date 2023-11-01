@@ -1,11 +1,11 @@
 package com.example.demo.model.dto;
 
-import com.example.demo.model.entity.Branch;
 import com.example.demo.model.enums.PaymentMethod;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @ToString
 @Builder
-public class InvoiceDto {
+public class InvoiceDto implements Serializable {
     private Integer invoiceId;
     private PaymentMethod paymentMethod;
     private BigDecimal discount;

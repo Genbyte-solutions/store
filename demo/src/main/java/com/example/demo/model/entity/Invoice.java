@@ -1,8 +1,10 @@
 package com.example.demo.model.entity;
 
 import com.example.demo.model.enums.PaymentMethod;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "invoices")
 public class Invoice {
@@ -32,10 +35,11 @@ public class Invoice {
     @Column(name = "total", nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
 
-    @OneToMany(mappedBy = "fkInvoiceId")
-    List<InvoiceDetail> InvoiceDetails;
-
     @CreationTimestamp
     @Column(name = "emitted_at", updatable = false)
     private Timestamp emittedAt;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "fkInvoiceId")
+    List<InvoiceDetail> invoiceDetails;
 }

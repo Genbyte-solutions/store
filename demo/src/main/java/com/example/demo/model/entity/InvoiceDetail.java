@@ -1,6 +1,7 @@
 package com.example.demo.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,7 @@ public class InvoiceDetail {
     @Column(name = "price_per_quantity", nullable = false, precision = 10, scale = 2)
     private BigDecimal pricePerQuantity;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "fk_invoice_id", nullable = false)
     private Invoice fkInvoiceId;

@@ -41,7 +41,7 @@ public class InvoiceController {
 
         Invoice invoice = invoiceService.save(invoiceDto);
         for (InvoiceDetailDto invoiceDetailDto : invoiceDto.getInvoiceDetailDtos()) {
-            invoiceDetailService.save(invoiceDetailDto);
+            invoiceDetailService.save(invoiceDetailDto, invoice);
         }
 
         invoiceDto = invoiceMapper.toDTO(invoice);
@@ -100,12 +100,12 @@ public class InvoiceController {
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        List<InvoiceDto> invoiceDtos = invoiceMapper.toDTOs(invoice);
+        // Error to convert entity to dto by invoiceDetails
+        // List<InvoiceDto> invoiceDtos = invoiceMapper.toDTOs(invoice);
 
         return new ResponseEntity<>(ResponseMessage.builder()
-                .object(invoiceDtos)
+                .object(invoice)
                 .build(), HttpStatus.OK);
-
     }
 
 }

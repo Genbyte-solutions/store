@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.dto.ProductDto;
+import com.example.demo.model.entity.Branch;
 import com.example.demo.model.entity.Product;
 import org.mapstruct.Mapper;
 
@@ -24,5 +25,14 @@ public abstract class ProductMapper {
         return list;
     }
 
-    public abstract Product toEntity(ProductDto productDto);
+    public Product toEntity(ProductDto productDto, Branch branch) {
+        return Product.builder()
+                .sku(productDto.getSku())
+                .unitPrice(productDto.getUnitPrice())
+                .brand(productDto.getBrand())
+                .size(productDto.getSize())
+                .stock(productDto.getStock())
+                .fkBranchId(branch)
+                .build();
+    }
 }

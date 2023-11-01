@@ -25,5 +25,10 @@ public abstract class BranchMapper {
         return list;
     }
 
-    public abstract Branch toEntity(BranchDto branchDto);
+    public Branch toEntity(BranchDto branchDto) {
+        return Branch.builder()
+                .address(branchDto.getAddress())
+                .zipCode(branchDto.getZipCode())
+                .build();
+    }
 }

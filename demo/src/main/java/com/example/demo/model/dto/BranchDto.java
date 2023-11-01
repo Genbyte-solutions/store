@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 @Accessors(chain = true)
 @Data
 @ToString
 @Builder
-public class BranchDto {
+public class BranchDto implements Serializable {
     private Integer branchId;
     private String address;
     private String zipCode;
