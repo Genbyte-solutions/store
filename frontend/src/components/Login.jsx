@@ -1,21 +1,21 @@
 import { useState } from "react";
-
-export function LoginForm({setUser , setClave}) {
+import { Link } from "react-router-dom";
+export function LoginForm({ setUser, setClave }) {
   const [userName, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     if (userName === "" || password === "") {
       setError("Todos los campos son obligatorios");
       return
     }
-    if (userName !== "admin"){
+    if (userName !== "admin") {
       setError("Usuario incorrecto")
       return
-    } 
-    if ( password !== "123456789") {
+    }
+    if (password !== "123456789") {
       setError("Contraseña Incorrecta")
       return
     }
@@ -27,13 +27,13 @@ export function LoginForm({setUser , setClave}) {
       setError("La contraseña debe tener al menos 8 caracteres");
       return
     }
-  
+
     setError(null)
     setUser(userName)
     setClave(password)
-    
+
   };
-  
+
   return (
     <section>
       <form className="formulario" onSubmit={handleSubmit} method="POST">
@@ -58,10 +58,13 @@ export function LoginForm({setUser , setClave}) {
           onChange={(e) => setPassword(e.target.value)}
         />
         {error && <p className="error">{error}</p>}
-        <button className="btn btn-primary" type="submit">
-          Iniciar sesión
-        </button>
+        <Link to={"/home"}>
+          <button className="btn btn-primary" type="submit">
+            Iniciar sesión
+          </button>
+        </Link>
         <div className="recuperar__contraseña">
+          
           <a href="">Recuperar usuario</a>
           <a href="">Recuperar contraseña</a>
         </div>

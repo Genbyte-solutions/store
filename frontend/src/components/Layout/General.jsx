@@ -10,7 +10,7 @@ export function SeccionGeneral({ user, inputValue, setShow }) {
     <section className="section-general">
       <div onClick={handleOpen} className="item shadow">Caja: <strong className='valor__caja'>${inputValue}</strong> </div>
       <div className="panel-general shadow">Panel General</div>
-      <div className="item shadow">{user.toUpperCase()}</div>
+      <div className="item shadow">ADMIN</div>
     </section>
   );
 }
