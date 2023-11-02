@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom'
 import { Ventas } from "./Layout/Ventas";
 import { Busqueda } from "./Layout/Busqueda";
 import { Results } from "./Layout/Results";
@@ -11,19 +11,19 @@ import { useFilter } from "../hooks/useFilter";
 import { Cart } from "./Cart";
 import { CloseButton } from "./Layout/CloseButton";
 import { useCart } from "../hooks/useCart";
-import { Contador } from "./Layout/Contador";
 import MyModal from "./ModalPopUp";
 
 
-export function Home({ user, setUser }) {
+export function Home({ user }) {
   const { filteredProducts, setFilteredProducts } = useFilter();
   const { search, setSearch } = useSearch();
   const { cart, addToCart, removeToCart, checkIsOnCart, restQuantity, sumQuantity } = useCart();
   const [inputValue, setInputValue] = useState('');
   const [show, setShow] = useState(true);
+  const navigate = useNavigate()
 
   const handleLogout = () => {
-    setUser([]);
+    navigate('/')
   };
 
   const productsList = products;
