@@ -71,6 +71,23 @@ public class ProductController {
                 .build(), HttpStatus.OK);
     }
 
+    @GetMapping("/productTitle")
+    public ResponseEntity<?> findByTitle(@RequestParam("title") String title) {
+        Product product = productService.findByTitle(title);
+
+        if (product == null) {
+            return new ResponseEntity<>(ResponseMessage.builder()
+                    .message("Product not found")
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+
+        ProductDto productDto = productMapper.toDTO(product);
+
+        return new ResponseEntity<>(ResponseMessage.builder()
+                .object(productDto)
+                .build(), HttpStatus.OK);
+    }
+
     @GetMapping("/products")
     public ResponseEntity<?> findAll() {
         List<Product> products = productService.findAll();

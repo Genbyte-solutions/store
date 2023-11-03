@@ -36,6 +36,12 @@ public class ProductImpl implements IProduct {
 
     @Transactional(readOnly = true)
     @Override
+    public Product findByTitle(String title) {
+        return productRepository.findByTitle(title);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<Product> findAll() {
         return (List<Product>) productRepository.findAll();
     }

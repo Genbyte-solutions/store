@@ -12,6 +12,8 @@ public interface IProduct {
 
     Product findBySku(String productSku);
 
+    Product findByTitle(String productTitle);
+
     List<Product> findAll();
 
     void deleteById(Integer id);
