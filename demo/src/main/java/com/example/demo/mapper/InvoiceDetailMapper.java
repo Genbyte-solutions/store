@@ -21,7 +21,6 @@ public class InvoiceDetailMapper {
         return InvoiceDetailResponseDto.builder()
                 .invoiceDetailId(invoiceDetail.getInvoiceDetailId())
                 .quantity(invoiceDetail.getQuantity())
-                .pricePerQuantity(invoiceDetail.getPricePerQuantity())
                 .productDto(productMapper.toDTO(invoiceDetail.getFkProductId()))
                 .build();
     }
