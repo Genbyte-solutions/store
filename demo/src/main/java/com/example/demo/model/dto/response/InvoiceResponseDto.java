@@ -1,6 +1,5 @@
 package com.example.demo.model.dto.response;
 
-import com.example.demo.model.dto.InvoiceDetailDto;
 import com.example.demo.model.enums.PaymentMethod;
 import lombok.Builder;
 import lombok.Data;
