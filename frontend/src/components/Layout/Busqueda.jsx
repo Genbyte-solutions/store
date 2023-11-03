@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-
+import {AiOutlineSearch} from "react-icons/ai"
 export const Busqueda = ({ products, setFilteredProducts, search, setSearch}) => {
   
   useEffect(() => {
@@ -27,7 +27,7 @@ export const Busqueda = ({ products, setFilteredProducts, search, setSearch}) =>
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button className="search-button">Buscar</button>
+          <button className="search-button"><AiOutlineSearch/></button>
         </div>
       </div>
     </section>
