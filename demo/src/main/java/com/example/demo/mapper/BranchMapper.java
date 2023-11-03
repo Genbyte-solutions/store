@@ -8,8 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public abstract class BranchMapper {
-    public abstract BranchDto toDTO(Branch branch);
+public class BranchMapper {
+
+    public BranchDto toDTO(Branch branch) {
+        return BranchDto.builder()
+                .branchId(branch.getBranchId())
+                .address(branch.getAddress())
+                .zipCode(branch.getZipCode())
+                .build();
+    }
 
     public List<BranchDto> toDTOs(List<Branch> branches) {
         if (branches == null) {

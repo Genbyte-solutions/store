@@ -23,12 +23,7 @@ public class ProductImpl implements IProduct {
     }
 
     @Override
-    public Product save(ProductDto productDto) {
-        Branch branch = Branch.builder()
-                .branchId(productDto.getFkBranchId().getBranchId())
-                .address(productDto.getFkBranchId().getAddress())
-                .zipCode(productDto.getFkBranchId().getZipCode())
-                .build();
+    public Product save(ProductDto productDto, Branch branch) {
         Product product = productMapper.toEntity(productDto, branch);
         return productRepository.save(product);
     }

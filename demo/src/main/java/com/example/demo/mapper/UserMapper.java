@@ -5,7 +5,13 @@ import com.example.demo.model.entity.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+public class UserMapper {
 
-    UserDto toDTO(User user);
+    public UserDto toDTO(User user) {
+        return UserDto.builder()
+                .userId(user.getUserId())
+                .username(user.getUsername())
+                .rol(user.getRol())
+                .build();
+    }
 }

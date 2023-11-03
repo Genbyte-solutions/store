@@ -3,10 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.mapper.InvoiceMapper;
 import com.example.demo.model.dto.InvoiceDetailDto;
 import com.example.demo.model.dto.InvoiceDto;
-import com.example.demo.model.entity.Branch;
+import com.example.demo.model.dto.response.InvoiceResponseDto;
 import com.example.demo.model.entity.Invoice;
+import com.example.demo.model.enums.PaymentMethod;
 import com.example.demo.model.payload.ResponseMessage;
-import com.example.demo.service.IBranch;
 import com.example.demo.service.IInvoiceDetail;
 import com.example.demo.service.IInvoice;
 import org.springframework.http.HttpStatus;
@@ -19,13 +19,11 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class InvoiceController {
     private final IInvoice invoiceService;
-    private final IBranch branchService;
     private final IInvoiceDetail invoiceDetailService;
     private final InvoiceMapper invoiceMapper;
 
-    public InvoiceController(IInvoice invoiceService, IBranch branchService, IInvoiceDetail invoiceDetailService, InvoiceMapper invoiceMapper) {
+    public InvoiceController(IInvoice invoiceService, IInvoiceDetail invoiceDetailService, InvoiceMapper invoiceMapper) {
         this.invoiceService = invoiceService;
-        this.branchService = branchService;
         this.invoiceDetailService = invoiceDetailService;
         this.invoiceMapper = invoiceMapper;
     }
@@ -44,11 +42,11 @@ public class InvoiceController {
             invoiceDetailService.save(invoiceDetailDto, invoice);
         }
 
-        invoiceDto = invoiceMapper.toDTO(invoice);
+        InvoiceResponseDto invoiceResponseDto = invoiceMapper.toDTO(invoice);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("A new invoice has been generated")
-                .object(invoiceDto)
+                .object(invoiceResponseDto)
                 .build(), HttpStatus.CREATED);
 
     }
@@ -64,7 +62,7 @@ public class InvoiceController {
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        InvoiceDto invoiceDto = invoiceMapper.toDTO(invoice);
+        InvoiceResponseDto invoiceDto = invoiceMapper.toDTO(invoice);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .object(invoiceDto)
@@ -72,9 +70,9 @@ public class InvoiceController {
     }
 
     @GetMapping("/invoice")
-    public ResponseEntity<?> findByPaymentMethod(@RequestParam("paymentmethod") String paymentMethod) {
+    public ResponseEntity<?> findByPaymentMethod(@RequestParam("paymentmethod") PaymentMethod paymentMethod) {
 
-        List<Invoice> invoice = invoiceService.findByPaymentMethod(paymentMethod.toUpperCase());
+        List<Invoice> invoice = invoiceService.findByPaymentMethod(paymentMethod);
 
         if (invoice.isEmpty()) {
             return new ResponseEntity<>(ResponseMessage.builder()
@@ -82,7 +80,7 @@ public class InvoiceController {
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        List<InvoiceDto> invoiceDtos = invoiceMapper.toDTOs(invoice);
+        List<InvoiceResponseDto> invoiceDtos = invoiceMapper.toDTOs(invoice);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .object(invoiceDtos)
@@ -101,10 +99,10 @@ public class InvoiceController {
         }
 
         // Error to convert entity to dto by invoiceDetails
-        // List<InvoiceDto> invoiceDtos = invoiceMapper.toDTOs(invoice);
+         List<InvoiceResponseDto> invoiceDtos = invoiceMapper.toDTOs(invoice);
 
         return new ResponseEntity<>(ResponseMessage.builder()
-                .object(invoice)
+                .object(invoiceDtos)
                 .build(), HttpStatus.OK);
     }
 

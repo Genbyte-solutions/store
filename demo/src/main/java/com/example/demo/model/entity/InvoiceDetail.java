@@ -32,7 +32,7 @@ public class InvoiceDetail {
     @JoinColumn(name = "fk_invoice_id", nullable = false)
     private Invoice fkInvoiceId;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "fk_product_id", nullable = false)
     private Product fkProductId;
 }

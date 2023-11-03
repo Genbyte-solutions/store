@@ -2,7 +2,6 @@ package com.example.demo.service.Impl;
 
 import com.example.demo.mapper.InvoiceDetailMapper;
 import com.example.demo.model.dto.InvoiceDetailDto;
-import com.example.demo.model.entity.Branch;
 import com.example.demo.model.entity.Invoice;
 import com.example.demo.model.entity.InvoiceDetail;
 import com.example.demo.model.entity.Product;
@@ -20,13 +19,13 @@ public class InvoiceDetailImpl implements IInvoiceDetail {
 
     private final InvoiceDetailRepository invoiceDetailRepository;
     private final ProductRepository productRepository;
-    private final InvoiceRepository invoiceRepository;
+//    private final InvoiceRepository invoiceRepository;
     private final InvoiceDetailMapper invoiceDetailMapper;
 
-    public InvoiceDetailImpl(InvoiceDetailRepository invoiceDetailRepository, ProductRepository productRepository, InvoiceRepository invoiceRepository, InvoiceDetailMapper invoiceDetailMapper) {
+    public InvoiceDetailImpl(InvoiceDetailRepository invoiceDetailRepository, ProductRepository productRepository, InvoiceDetailMapper invoiceDetailMapper) {
         this.invoiceDetailRepository = invoiceDetailRepository;
         this.productRepository = productRepository;
-        this.invoiceRepository = invoiceRepository;
+//        this.invoiceRepository = invoiceRepository;
         this.invoiceDetailMapper = invoiceDetailMapper;
     }
 
@@ -42,7 +41,7 @@ public class InvoiceDetailImpl implements IInvoiceDetail {
         return invoiceDetail;
     }
 
-    @Transactional(readOnly = true)
+    /*@Transactional(readOnly = true)
     @Override
     public List<InvoiceDetail> findAll() {
         return (List<InvoiceDetail>) invoiceDetailRepository.findAll();
@@ -56,5 +55,5 @@ public class InvoiceDetailImpl implements IInvoiceDetail {
         if (invoice == null) return null;
 
         return invoiceDetailRepository.findAllByFkInvoiceId(invoice);
-    }
+    }*/
 }

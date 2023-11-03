@@ -14,15 +14,17 @@ import java.math.BigDecimal;
 public class ProductDto implements Serializable {
     private Integer productId;
     private String sku;
+    private String title;
     private BigDecimal unitPrice;
     private String brand;
     private Size size;
     private Integer stock;
     private BranchDto fkBranchId;
 
-    public ProductDto(Integer productId, String sku, BigDecimal unitPrice, String brand, Size size, Integer stock, BranchDto fkBranchId) {
+    public ProductDto(Integer productId, String sku, String title, BigDecimal unitPrice, String brand, Size size, Integer stock, BranchDto fkBranchId) {
         this.productId = productId;
         this.sku = sku;
+        this.title = title;
         this.unitPrice = unitPrice;
         this.brand = brand;
         this.size = size;

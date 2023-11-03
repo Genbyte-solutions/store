@@ -3,7 +3,7 @@ package com.example.demo.service.Impl;
 import com.example.demo.mapper.InvoiceMapper;
 import com.example.demo.model.dto.InvoiceDto;
 import com.example.demo.model.entity.Invoice;
-import com.example.demo.model.entity.InvoiceDetail;
+import com.example.demo.model.enums.PaymentMethod;
 import com.example.demo.repository.InvoiceRepository;
 import com.example.demo.service.IInvoice;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class InvoiceImpl implements IInvoice {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Invoice> findByPaymentMethod(String paymentMethod) {
+    public List<Invoice> findByPaymentMethod(PaymentMethod paymentMethod) {
         return invoiceRepository.findAllByPaymentMethod(paymentMethod);
     }
 

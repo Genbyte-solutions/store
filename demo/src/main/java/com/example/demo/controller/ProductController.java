@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.dto.ProductDto;
+import com.example.demo.model.entity.Branch;
 import com.example.demo.model.entity.Product;
 import com.example.demo.model.payload.ResponseMessage;
+import com.example.demo.service.IBranch;
 import com.example.demo.service.IProduct;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,13 @@ import java.util.List;
 public class ProductController {
 
     private final IProduct productService;
+
+    private final IBranch branchServoce;
     private final ProductMapper productMapper;
 
-    public ProductController(IProduct productService, ProductMapper productMapper) {
+    public ProductController(IProduct productService, IBranch branchServoce, ProductMapper productMapper) {
         this.productService = productService;
+        this.branchServoce = branchServoce;
         this.productMapper = productMapper;
     }
 
@@ -27,14 +32,20 @@ public class ProductController {
     public ResponseEntity<?> create(@RequestBody ProductDto productDto) {
 
         Product findProduct = productService.findBySku(productDto.getSku());
-
         if (findProduct != null) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("This product already exist")
                     .build(), HttpStatus.CONFLICT);
         }
 
-        Product product = productService.save(productDto);
+        Branch branch = branchServoce.findById(productDto.getFkBranchId().getBranchId());
+        if (branch == null) {
+            return new ResponseEntity<>(ResponseMessage.builder()
+                    .message("Branch not found")
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+
+        Product product = productService.save(productDto, branch);
         productDto = productMapper.toDTO(product);
 
         return new ResponseEntity<>(ResponseMessage.builder()
