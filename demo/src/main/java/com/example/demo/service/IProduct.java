@@ -10,9 +10,9 @@ public interface IProduct {
 
     Product save(ProductDto productDto, Branch branch);
 
-    Product findBySku(String productSku);
+    Product findBySku (String productSku);
 
-    Product findByTitle(String productTitle);
+    List<Product> findByTitleOrSku(String search);
 
     List<Product> findAll();
 

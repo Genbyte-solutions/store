@@ -30,14 +30,12 @@ public class ProductImpl implements IProduct {
 
     @Transactional(readOnly = true)
     @Override
-    public Product findBySku(String sku) {
-        return productRepository.findBySku(sku);
+    public Product findBySku(String sku) { return productRepository.findBySku(sku);
     }
-
     @Transactional(readOnly = true)
     @Override
-    public Product findByTitle(String title) {
-        return productRepository.findByTitle(title);
+    public List<Product> findByTitleOrSku(String search) {
+        return productRepository.findByTitleOrSku(search);
     }
 
     @Transactional(readOnly = true)

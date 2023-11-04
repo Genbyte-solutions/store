@@ -55,33 +55,16 @@ public class ProductController {
     }
 
     @GetMapping("/product")
-    public ResponseEntity<?> findBySku(@RequestParam("sku") String sku) {
-        Product product = productService.findBySku(sku);
+    public ResponseEntity<?> findByTitleOrSku(@RequestParam("search") String search) {
+        List<Product> products = productService.findByTitleOrSku(search);
 
-        if (product == null) {
+        if (products.isEmpty()) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("Product not found")
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        ProductDto productDto = productMapper.toDTO(product);
-
-        return new ResponseEntity<>(ResponseMessage.builder()
-                .object(productDto)
-                .build(), HttpStatus.OK);
-    }
-
-    @GetMapping("/productTitle")
-    public ResponseEntity<?> findByTitle(@RequestParam("title") String title) {
-        Product product = productService.findByTitle(title);
-
-        if (product == null) {
-            return new ResponseEntity<>(ResponseMessage.builder()
-                    .message("Product not found")
-                    .build(), HttpStatus.NOT_FOUND);
-        }
-
-        ProductDto productDto = productMapper.toDTO(product);
+        List<ProductDto> productDto = productMapper.toDTOs(products);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .object(productDto)
