@@ -1,6 +1,7 @@
 package com.example.demo.model.entity;
 
 
+import com.example.demo.model.enums.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +23,19 @@ public class InvoiceDetail {
     @Column(name = "invoice_detail_id")
     private Integer invoiceDetailId;
 
+    @Column(name = "product_sku", nullable = false)
+    private String productSku;
+
+    @Column(name = "product_title", nullable = false)
+    private String productTitle;
+
+    @Column(name = "product_brand", nullable = false)
+    private String productBrand;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "product_size", nullable = false)
+    private Size productSize;
+
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
@@ -31,8 +46,4 @@ public class InvoiceDetail {
     @ManyToOne
     @JoinColumn(name = "fk_invoice_id", nullable = false)
     private Invoice fkInvoiceId;
-
-    @ManyToOne
-    @JoinColumn(name = "fk_product_id", nullable = false)
-    private Product fkProductId;
 }

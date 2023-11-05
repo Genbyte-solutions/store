@@ -22,7 +22,7 @@ public class InvoiceMapper {
                 .discount(invoice.getDiscount())
                 .total(invoice.getTotal())
                 .emittedAt(invoice.getEmittedAt())
-                .invoiceDetailDtos(invoiceDetailMapper.toDTOs(invoice.getInvoiceDetails()))
+                .invoiceDetailResponseDtos(invoiceDetailMapper.toDTOs(invoice.getInvoiceDetails()))
                 .build();
     }
 

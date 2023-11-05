@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.dto.ProductDto;
+import com.example.demo.model.dto.response.ProductResponseDto;
 import com.example.demo.model.entity.Branch;
 import com.example.demo.model.entity.Product;
 import com.example.demo.model.payload.ResponseMessage;
@@ -45,12 +46,12 @@ public class ProductController {
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        Product product = productService.save(productDto, branch);
-        productDto = productMapper.toDTO(product);
+        ProductResponseDto productResponseDto = productMapper.toDTO(
+                productService.save(productDto, branch));
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("A new product has been added")
-                .object(productDto)
+                .object(productResponseDto)
                 .build(), HttpStatus.CREATED);
     }
 
@@ -64,10 +65,10 @@ public class ProductController {
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        List<ProductDto> productDto = productMapper.toDTOs(products);
+        List<ProductResponseDto> productResponseDtos = productMapper.toDTOs(products);
 
         return new ResponseEntity<>(ResponseMessage.builder()
-                .object(productDto)
+                .object(productResponseDtos)
                 .build(), HttpStatus.OK);
     }
 
@@ -81,10 +82,10 @@ public class ProductController {
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        List<ProductDto> productDtos = productMapper.toDTOs(products);
+        List<ProductResponseDto> productResponseDtos = productMapper.toDTOs(products);
 
         return new ResponseEntity<>(ResponseMessage.builder()
-                .object(productDtos)
+                .object(productResponseDtos)
                 .build(), HttpStatus.OK);
     }
 

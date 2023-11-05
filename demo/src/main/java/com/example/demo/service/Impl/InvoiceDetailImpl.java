@@ -28,9 +28,7 @@ public class InvoiceDetailImpl implements IInvoiceDetail {
     @Override
     public InvoiceDetail save(InvoiceDetailDto invoiceDetailDto, Invoice invoice) {
 
-        Product product = productRepository.findBySku(invoiceDetailDto.getProductSku());
-
-        InvoiceDetail invoiceDetail = invoiceDetailMapper.toEntity(invoiceDetailDto, product, invoice);
+        InvoiceDetail invoiceDetail = invoiceDetailMapper.toEntity(invoiceDetailDto, invoice);
         invoiceDetailRepository.save(invoiceDetail);
 
         return invoiceDetail;

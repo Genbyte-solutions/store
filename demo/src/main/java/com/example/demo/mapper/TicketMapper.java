@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.model.dto.ProductDto;
 import com.example.demo.model.dto.TicketDto;
+import com.example.demo.model.dto.response.ProductResponseDto;
 import com.example.demo.model.entity.Ticket;
 import org.mapstruct.Mapper;
 
@@ -15,6 +16,8 @@ public class TicketMapper {
         return TicketDto.builder()
                 .productSku(ticket.getProductSku())
                 .productTitle(ticket.getProductTitle())
+                .productBrand(ticket.getProductBrand())
+                .productSize(ticket.getProductSize())
                 .quantity(ticket.getQuantity())
                 .unitPrice(ticket.getUnitPrice())
                 .pricePerQuantity(ticket.getPricePerQuantity())
@@ -35,13 +38,15 @@ public class TicketMapper {
         return list;
     }
 
-    public Ticket toEntity(ProductDto productDto) {
+    public Ticket toEntity(ProductResponseDto productResponseDto) {
         return Ticket.builder()
-                .productSku(productDto.getSku())
-                .productTitle(productDto.getTitle())
+                .productSku(productResponseDto.getSku())
+                .productTitle(productResponseDto.getTitle())
+                .productBrand(productResponseDto.getBrand())
+                .productSize(productResponseDto.getSize())
                 .quantity(1)
-                .unitPrice(productDto.getUnitPrice())
-                .pricePerQuantity(productDto.getUnitPrice())
+                .unitPrice(productResponseDto.getUnitPrice())
+                .pricePerQuantity(productResponseDto.getUnitPrice())
                 .build();
     }
 }

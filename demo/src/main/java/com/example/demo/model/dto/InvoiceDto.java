@@ -14,19 +14,15 @@ import java.util.List;
 @ToString
 @Builder
 public class InvoiceDto implements Serializable {
-    private Integer invoiceId;
     private PaymentMethod paymentMethod;
     private BigDecimal discount;
     private BigDecimal total;
-    private Timestamp emittedAt;
     private List<InvoiceDetailDto> invoiceDetailDtos;
 
-    public InvoiceDto(Integer invoiceId, PaymentMethod paymentMethod, BigDecimal discount, BigDecimal total, Timestamp emittedAt, List<InvoiceDetailDto> invoiceDetailDtos) {
-        this.invoiceId = invoiceId;
+    public InvoiceDto( PaymentMethod paymentMethod, BigDecimal discount, BigDecimal total, List<InvoiceDetailDto> invoiceDetailDtos) {
         this.paymentMethod = paymentMethod;
         this.discount = discount;
         this.total = total;
-        this.emittedAt = emittedAt;
         this.invoiceDetailDtos = invoiceDetailDtos;
     }
 }

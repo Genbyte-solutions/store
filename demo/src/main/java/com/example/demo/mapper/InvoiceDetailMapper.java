@@ -20,8 +20,12 @@ public class InvoiceDetailMapper {
     public InvoiceDetailResponseDto toDTO(InvoiceDetail invoiceDetail) {
         return InvoiceDetailResponseDto.builder()
                 .invoiceDetailId(invoiceDetail.getInvoiceDetailId())
+                .productSku(invoiceDetail.getProductSku())
+                .productTitle(invoiceDetail.getProductTitle())
+                .productBrand(invoiceDetail.getProductBrand())
+                .productSize(invoiceDetail.getProductSize())
                 .quantity(invoiceDetail.getQuantity())
-                .productDto(productMapper.toDTO(invoiceDetail.getFkProductId()))
+                .pricePerQuantity(invoiceDetail.getPricePerQuantity())
                 .build();
     }
 
@@ -38,11 +42,14 @@ public class InvoiceDetailMapper {
         return list;
     }
 
-    public InvoiceDetail toEntity(InvoiceDetailDto invoiceDetailDto, Product product, Invoice invoice) {
+    public InvoiceDetail toEntity(InvoiceDetailDto invoiceDetailDto, Invoice invoice) {
         return InvoiceDetail.builder()
+                .productSku(invoiceDetailDto.getProductSku())
+                .productTitle(invoiceDetailDto.getProductTitle())
+                .productBrand(invoiceDetailDto.getProductBrand())
+                .productSize(invoiceDetailDto.getProductSize())
                 .quantity(invoiceDetailDto.getQuantity())
                 .pricePerQuantity(invoiceDetailDto.getPricePerQuantity())
-                .fkProductId(product)
                 .fkInvoiceId(invoice)
                 .build();
     }

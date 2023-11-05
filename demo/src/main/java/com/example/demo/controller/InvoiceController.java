@@ -1,14 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.mapper.InvoiceMapper;
-import com.example.demo.model.dto.InvoiceDetailDto;
 import com.example.demo.model.dto.InvoiceDto;
 import com.example.demo.model.dto.response.InvoiceResponseDto;
 import com.example.demo.model.entity.Invoice;
 import com.example.demo.model.enums.PaymentMethod;
 import com.example.demo.model.payload.ResponseMessage;
-import com.example.demo.service.IInvoiceDetail;
 import com.example.demo.service.IInvoice;
+import com.example.demo.service.ITicket;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +18,12 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class InvoiceController {
     private final IInvoice invoiceService;
-    private final IInvoiceDetail invoiceDetailService;
+    private final ITicket ticketService;
     private final InvoiceMapper invoiceMapper;
 
-    public InvoiceController(IInvoice invoiceService, IInvoiceDetail invoiceDetailService, InvoiceMapper invoiceMapper) {
+    public InvoiceController(IInvoice invoiceService, ITicket ticketService, InvoiceMapper invoiceMapper) {
         this.invoiceService = invoiceService;
-        this.invoiceDetailService = invoiceDetailService;
+        this.ticketService = ticketService;
         this.invoiceMapper = invoiceMapper;
     }
 
@@ -38,17 +37,12 @@ public class InvoiceController {
         }
 
         Invoice invoice = invoiceService.save(invoiceDto);
-        for (InvoiceDetailDto invoiceDetailDto : invoiceDto.getInvoiceDetailDtos()) {
-            invoiceDetailService.save(invoiceDetailDto, invoice);
-        }
-
-        InvoiceResponseDto invoiceResponseDto = invoiceMapper.toDTO(invoice);
+        ticketService.deleteAll();
 
         return new ResponseEntity<>(ResponseMessage.builder()
-                .message("A new invoice has been generated")
-                .object(invoiceResponseDto)
+                .message("Invoice generated")
+                .object(invoice)
                 .build(), HttpStatus.CREATED);
-
     }
 
     @GetMapping("/invoice/{id}")
@@ -99,7 +93,7 @@ public class InvoiceController {
         }
 
         // Error to convert entity to dto by invoiceDetails
-         List<InvoiceResponseDto> invoiceDtos = invoiceMapper.toDTOs(invoice);
+        List<InvoiceResponseDto> invoiceDtos = invoiceMapper.toDTOs(invoice);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .object(invoiceDtos)

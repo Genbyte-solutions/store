@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.dto.ProductDto;
+import com.example.demo.model.dto.response.ProductResponseDto;
 import com.example.demo.model.entity.Branch;
 import com.example.demo.model.entity.Product;
 import org.mapstruct.Mapper;
@@ -15,8 +16,8 @@ public class ProductMapper {
     @Autowired
     private BranchMapper branchMapper;
 
-    public ProductDto toDTO(Product product) {
-        return ProductDto.builder()
+    public ProductResponseDto toDTO(Product product) {
+        return ProductResponseDto.builder()
                 .productId(product.getProductId())
                 .sku(product.getSku())
                 .title(product.getTitle())
@@ -24,16 +25,15 @@ public class ProductMapper {
                 .brand(product.getBrand())
                 .size(product.getSize())
                 .stock(product.getStock())
-                .fkBranchId(branchMapper.toDTO(product.getFkBranchId()))
                 .build();
     }
 
-    public List<ProductDto> toDTOs(List<Product> products) {
+    public List<ProductResponseDto> toDTOs(List<Product> products) {
         if (products == null) {
             return null;
         }
 
-        List<ProductDto> list = new ArrayList<>();
+        List<ProductResponseDto> list = new ArrayList<>();
         for (Product product : products) {
             list.add(toDTO(product));
         }
