@@ -7,7 +7,7 @@ import com.example.demo.model.entity.Invoice;
 import com.example.demo.model.enums.PaymentMethod;
 import com.example.demo.model.payload.ResponseMessage;
 import com.example.demo.service.IInvoice;
-import com.example.demo.service.ITicket;
+import com.example.demo.service.ICart;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +18,10 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class InvoiceController {
     private final IInvoice invoiceService;
-    private final ITicket ticketService;
+    private final ICart ticketService;
     private final InvoiceMapper invoiceMapper;
 
-    public InvoiceController(IInvoice invoiceService, ITicket ticketService, InvoiceMapper invoiceMapper) {
+    public InvoiceController(IInvoice invoiceService, ICart ticketService, InvoiceMapper invoiceMapper) {
         this.invoiceService = invoiceService;
         this.ticketService = ticketService;
         this.invoiceMapper = invoiceMapper;
@@ -92,7 +92,6 @@ public class InvoiceController {
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        // Error to convert entity to dto by invoiceDetails
         List<InvoiceResponseDto> invoiceDtos = invoiceMapper.toDTOs(invoice);
 
         return new ResponseEntity<>(ResponseMessage.builder()

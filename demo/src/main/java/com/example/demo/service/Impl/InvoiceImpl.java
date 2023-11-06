@@ -35,7 +35,6 @@ public class InvoiceImpl implements IInvoice {
     @Transactional
     @Override
     public Invoice save(InvoiceDto invoiceDto) {
-        BigDecimal amount = new BigDecimal(0);
         Invoice invoice = invoiceMapper.toEntity(invoiceDto);
         invoice = invoiceRepository.save(invoice);
 

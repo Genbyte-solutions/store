@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Data
 @ToString
 @Builder
-public class TicketDto {
+public class CartDto {
     private String productSku;
     private String productTitle;
     private String productBrand;
@@ -19,7 +19,7 @@ public class TicketDto {
     private BigDecimal unitPrice;
     private BigDecimal pricePerQuantity;
 
-    public TicketDto(String productSku, String productTitle, String productBrand, Size productSize, Integer quantity, BigDecimal unitPrice, BigDecimal pricePerQuantity) {
+    public CartDto(String productSku, String productTitle, String productBrand, Size productSize, Integer quantity, BigDecimal unitPrice, BigDecimal pricePerQuantity) {
         this.productSku = productSku;
         this.productTitle = productTitle;
         this.productBrand = productBrand;

@@ -1,73 +1,72 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.mapper.TicketMapper;
-import com.example.demo.model.dto.ProductDto;
-import com.example.demo.model.dto.TicketDto;
+import com.example.demo.mapper.CartMapper;
+import com.example.demo.model.dto.CartDto;
 import com.example.demo.model.dto.response.ProductResponseDto;
-import com.example.demo.model.entity.Ticket;
 import com.example.demo.model.payload.ResponseMessage;
-import com.example.demo.service.ITicket;
+import com.example.demo.service.ICart;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-class TicketController {
+class CartController {
 
-    private final ITicket ticketService;
-    private final TicketMapper ticketMapper;
+    private final ICart cartService;
+    private final CartMapper cartMapper;
 
-    TicketController(ITicket ticketService, TicketMapper ticketMapper) {
-        this.ticketService = ticketService;
-        this.ticketMapper = ticketMapper;
+    CartController(ICart cartService, CartMapper cartMapper) {
+        this.cartService = cartService;
+        this.cartMapper = cartMapper;
     }
 
-    @PostMapping("/ticket")
+    @PostMapping("/cart")
     public ResponseEntity<?> addProductToTicket(@RequestBody ProductResponseDto productResponseDto) {
 
-        Ticket ticket = ticketService.findByProductSku(productResponseDto.getSku());
+        CartDto cart = cartService.findByProductSku(productResponseDto.getSku());
 
-        if (ticket != null) {
+        if (cart != null) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("Product has already been added")
                     .build(), HttpStatus.CONFLICT);
         }
 
-        ticketService.save(productResponseDto);
+        cartService.save(productResponseDto);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("Added product")
                 .build(), HttpStatus.OK);
     }
 
-    @PatchMapping("/ticket/update")
+    @PatchMapping("/cart/update")
     public ResponseEntity<?> updateTicket(@RequestParam("quantity") Integer quantity, @RequestParam("productSku") String productSku) {
 
-        Ticket ticket = ticketService.findByProductSku(productSku);
+        CartDto cart = cartService.findByProductSku(productSku);
 
-        if (ticket == null) {
+        if (cart == null) {
             return new ResponseEntity<>(ResponseMessage.builder()
-                    .message("Product is not on the ticket")
+                    .message("Product is not on the cart")
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        ticketService.update(ticket, quantity, productSku);
+        cartService.update(cart, quantity, productSku);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/ticket/products")
+    @GetMapping("/cart/products")
     public ResponseEntity<?> findAll() {
         BigDecimal total = new BigDecimal(0);
-        List<Ticket> ticket = ticketService.findAll();
-        List<TicketDto> products = ticketMapper.toDTOs(ticket);
+        LinkedList<CartDto> cart = cartService.findAll();
+        List<CartDto> products = cartMapper.toDTOs(cart);
 
-        for (int i = 0; i < products.size(); i++) {
-            total = total.add(products.get(i).getPricePerQuantity());
+        for (CartDto product : products) {
+            total = total.add(product.getPricePerQuantity());
         }
 
         return new ResponseEntity<>(ResponseMessage.builder()
@@ -76,18 +75,22 @@ class TicketController {
                 .build(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/ticket")
+    @DeleteMapping("/cart")
     public ResponseEntity<?> deleteByProductSku(@RequestParam("sku") String sku) {
 
-        ticketService.deleteByProductSku(sku);
+        CartDto cart = cartService.findByProductSku(sku);
+
+        if (cart != null) {
+            cartService.deleteByProductSku(cart);
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/ticket/clean")
+    @DeleteMapping("/cart/clean")
     public ResponseEntity<?> cleanTicket() {
 
-        ticketService.deleteAll();
+        cartService.deleteAll();
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
