@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.mapper.CartMapper;
 import com.example.demo.model.dto.CartDto;
 import com.example.demo.model.dto.response.ProductResponseDto;
 import com.example.demo.model.payload.ResponseMessage;
@@ -12,18 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
 class CartController {
 
     private final ICart cartService;
-    private final CartMapper cartMapper;
 
-    CartController(ICart cartService, CartMapper cartMapper) {
+    CartController(ICart cartService) {
         this.cartService = cartService;
-        this.cartMapper = cartMapper;
     }
 
     @PostMapping("/cart")
@@ -63,15 +59,14 @@ class CartController {
     public ResponseEntity<?> findAll() {
         BigDecimal total = new BigDecimal(0);
         LinkedList<CartDto> cart = cartService.findAll();
-        List<CartDto> products = cartMapper.toDTOs(cart);
 
-        for (CartDto product : products) {
+        for (CartDto product : cart) {
             total = total.add(product.getPricePerQuantity());
         }
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message(String.valueOf(total))
-                .object(products)
+                .object(cart)
                 .build(), HttpStatus.OK);
     }
 
