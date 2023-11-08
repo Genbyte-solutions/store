@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import '../css/FormaDePago.css'
 import { Link, useNavigate } from 'react-router-dom';
@@ -87,3 +88,4 @@ function FormaDePago() {
 }
 
 export default FormaDePago;
+

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import "../css/FormaDePago.css";
 import { useNavigate } from "react-router-dom";
@@ -112,3 +113,4 @@ function FormaDePagoHibrida() {
 }
 
 export default FormaDePagoHibrida;
+
