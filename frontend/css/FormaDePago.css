@@ -1,0 +1,143 @@
+*{
+    font-family: 'Onest', sans-serif;
+}
+.forma-de-pago-container {
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 40px 20px; /* Agregar padding al contenedor */
+    background-color: #f7f7f7;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px; /* Agregado para darle espacio al contenedor respecto a otros elementos */
+}
+
+.btn, .btn-outline-dark {
+    border-radius: 20px;
+    border-width: 2px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin: 20px 0; /* Margen para los botones */
+}
+
+
+.btn:hover, .btn-outline-dark:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.text-muted {
+    color: #888888;
+    margin-bottom: 15px;
+}
+/* Espaciado general */
+.contenedor-general {
+    padding: 20px;
+}
+
+.opcion-pago {
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: #f9f9f9; 
+    
+}
+
+.opcion-pago h2 {
+    margin-bottom: 10px;
+}
+.opcion-pago h6 {
+    
+    font-size: var(--bs-btn-font-size);
+    font-weight: var(--bs-btn-font-weight);
+    line-height: var(--bs-btn-line-height);
+    color: var(--bs-btn-color);
+}
+.p{
+    text-align: end;
+    padding-right: 2em;
+}
+
+
+.informacion-recargo-descuento {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #ffe0e0; /* Color de fondo, ajustar según necesidad */
+    border-radius: 10px;
+}
+
+/* Ajustes específicos para los botones */
+.btn-success {
+    background-color: #68c286; /* Color de fondo verde */
+    color: #ffffff; /* Texto blanco */
+}
+
+.btn-success {
+    background-color: #68c286; 
+    color: #ffffff; 
+}
+
+.btn-danger {
+    background-color: #f46868; /* Color de fondo rojo */
+    color: #ffffff; 
+}
+.btn:hover, .btn-outline-dark:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+.btn:active, .btn-outline-dark:active {
+    transform: translateY(1px);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+
+
+.form-control {
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+}
+
+.btn {
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.btn-light {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+}
+
+.btn-pink {
+    background-color: #ff6b95;
+    color: #fff;
+    border: none;
+}
+
+.mb-3 {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.forma-de-pago-container {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+.btn-info, .btn-light, .btn-danger, .btn-success {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.mr-2{
+    margin-right: 50px;
+}
+.btn.selected {
+    background-color: #17a2b8; /* o cualquier otro color para destacar el botón */
+    color: #fff; /* color del texto */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* un efecto de sombra más pronunciado para resaltar */
+}
