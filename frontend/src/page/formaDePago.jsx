@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import '../css/FormaDePago.css';
-import { useNavigate } from 'react-router-dom';
+import '../css/FormaDePago.css'
+import { Link, useNavigate } from 'react-router-dom';
 
 function FormaDePago() {
     const [montoBase] = useState(10000);
@@ -73,8 +73,8 @@ function FormaDePago() {
             </div>
 
             <div className="d-flex justify-content-between">
-                <button className="btn btn-success">VOLVER</button>
-                <button className="btn btn-success" onClick={() => navigate('/pagohibrido')}>PAGO HÍBRIDO</button>
+               <Link to="/home"> <button className="btn btn-success">VOLVER</button></Link>
+                <button className="btn btn-success" onClick={() => navigate('/formasdepagoshibrida')}>PAGO HÍBRIDO</button>
                 <button className="btn btn-danger" onClick={handleCobrar}>COBRAR</button>
             </div>
             <div className='opcion-pago'>

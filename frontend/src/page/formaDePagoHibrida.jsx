@@ -100,7 +100,7 @@ function FormaDePagoHibrida() {
         <div className="d-flex justify-content-end mt-3">
           <button
             className="btn btn-danger mr-2"
-            onClick={() => navigate("/formadepago")}
+            onClick={() => navigate("/formasdepagos")}
           >
             CANCELAR
           </button>

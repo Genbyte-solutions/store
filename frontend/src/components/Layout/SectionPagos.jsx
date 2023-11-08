@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+
+
 export const SectionPagos = () => {
   return (
     <section className="section-pagos">
@@ -11,9 +14,10 @@ export const SectionPagos = () => {
         <button type="button" class="btn btn-primary">
           Resumen de ventas
         </button>
+       <Link Link to="/formasdepagos">
         <button type="button" class="btn btn-primary">
           Elegir forma de pago
-        </button>
+        </button></Link>
       </div>
     </section>
   );
