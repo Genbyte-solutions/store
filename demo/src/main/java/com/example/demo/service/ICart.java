@@ -3,14 +3,14 @@ package com.example.demo.service;
 import com.example.demo.model.dto.CartDto;
 import com.example.demo.model.dto.response.ProductResponseDto;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public interface ICart {
     void save(ProductResponseDto productResponseDto);
 
     void update(CartDto cartDto, Integer quantity, String productSku);
 
-    LinkedList<CartDto> findAll();
+    List<CartDto> findAll();
 
     CartDto findByProductSku(String productSku);
 
