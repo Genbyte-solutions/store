@@ -1,22 +1,19 @@
-
 import Pay_Verification_Li from "../Pay_Verification_Li/Pay_Verification_Li";
 import './Pay_Verification.css';
-import {BiSolidCheckShield} from 'react-icons/bi';
 import Button_Pay from "../Button/Button";
-const Pay_Verification = () => {
+import {BiSolidCheckShield} from 'react-icons/bi';
+import {MdCancel} from 'react-icons/md';
+const Pay_Verification = ({approved}) => {
     return (
         <section className="section-container">
             <div className="container-pay">
             <div className='border rounded-4'>
-                <div className={`d-flex align-items-center justify-content-center flex-column rounded-4 bg-success  bg-gradient text-white`}>
-                {/* bg-${bg ? 'success': 'danger'} */}
+                <div className={`d-flex align-items-center justify-content-center flex-column rounded-4 bg-${approved ? 'success' : 'danger'}  bg-gradient text-white`}>
                     <figure>
-                        <BiSolidCheckShield className='icon-check'/>
-                        {/* {icon} */}
+                        {approved ? <BiSolidCheckShield className="icon-check"/> : <MdCancel className="icon-check"/>}
                     </figure>
                     <h3>
-                        {/* {isTrue ? 'Pago realizado con éxito' : 'Pago no aprobado'} */}
-                        Pago realizado con éxito
+                        {approved ? 'Pago realizado con éxito' : 'Pago no aprobado'}
                     </h3>
                 </div> 
                 <div className='py-5'>
@@ -25,7 +22,7 @@ const Pay_Verification = () => {
                     </div>
                 </div>
                 <ul className='data'>
-                    <Pay_Verification_Li/>
+                    {approved ? <Pay_Verification_Li/> : "Tarjeta rechazada"}
                 </ul>
             </div>
                 <Button_Pay/>
