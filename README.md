@@ -33,4 +33,3 @@ Nombre del autor o autores del proyecto.
 
 #Licencia
 este producto sera desarrollado por el equipo de Genbyte solutions
-
