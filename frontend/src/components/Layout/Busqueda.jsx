@@ -1,42 +1,31 @@
-import { useState, useEffect, useRef } from "react";
-import {AiOutlineSearch} from "react-icons/ai"
-export const Busqueda = ({ products, setFilteredProducts, search, setSearch}) => {
+import { useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 
-
-  useEffect(() => {
+export const Busqueda = ({ setFilteredProducts, search, setSearch }) => {
+  const handleClick = () => {
     if (search === "") {
       setFilteredProducts([]);
     } else {
       fetch(`http://localhost:8080/api/v1/product?search=${search}`)
-        .then((data) => data.json())
-        .then((info) => info.object)
-        .then(
-          (products) =>
-            products &&
-            products.filter((product) => {
-              return product.title
-                .toLowerCase()
-                .startsWith(search.toLowerCase());
-            })
-        )
-        .then((finalProducts) =>
-          finalProducts
-            ? setFilteredProducts(finalProducts)
-            : setFilteredProducts([])
-        );
-       .then(data => data.json())
-       .then(info => info.object)
-       .then(products => products.filter((product) => {
-          console.log(product)
-          return product.title.toLowerCase().includes(search.toLowerCase());
-
-       }))
-       .then(finalProducts => setFilteredProducts(finalProducts))
-
-      
+        .then((response) => response.json())
+        .then((data) => {
+          const products = data.object;
+          const filteredProducts = products.filter((product) =>
+            product.title.toLowerCase().includes(search.toLowerCase())
+          );
+          setFilteredProducts(filteredProducts);
+        })
+        .catch((error) => {
+          console.log("Error fetching data:", error);
+          setFilteredProducts([]);
+        });
     }
-  }, [search]);
-
+  };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleClick();
+    }
+  };
   return (
     <section className="section-search">
       <div className="search-bar">
@@ -49,8 +38,11 @@ export const Busqueda = ({ products, setFilteredProducts, search, setSearch}) =>
             placeholder="Buscar..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
-          <button className="search-button"><AiOutlineSearch/></button>
+          <button className="search-button" onClick={handleClick}>
+            <AiOutlineSearch />
+          </button>
         </div>
       </div>
     </section>
