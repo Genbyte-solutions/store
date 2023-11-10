@@ -11,7 +11,7 @@ export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart}) =
               <th>Número de Identificación</th>
               <th>Nombre</th>
               <th>Precio por Unidad</th>
-              <th>Precio por Mayor</th>
+              <th>Size</th>
               <th>Cantidad</th>
               <th>Stock</th>
             </tr>
@@ -22,8 +22,8 @@ export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart}) =
                 <td>{product.productId}</td>
                 <td>{product.title}</td>
                 <td>${product.unitPrice}</td>
-                <td>${product.wholesalePrice}</td>
-                <td>{product.quantity}</td>
+                <td>{product.size}</td>
+                <td>{product.quantity ?? 1}</td>
                 <td>{product.stock}</td>
                 <td>
                   {checkIsOnCart(product) ? (
