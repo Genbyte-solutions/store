@@ -2,14 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import {AiOutlineSearch} from "react-icons/ai"
 export const Busqueda = ({ products, setFilteredProducts, search, setSearch}) => {
 
-  const filterProducts = (data) => {
-    const newData = data.object
-    console.log(data)
-    newData.filter((product) => {
-      return product.name.toLowerCase().startsWith(search.toLowerCase());
-    });
-  }
-  
+
   useEffect(() => {
     if (search === "") {
       setFilteredProducts([]);
@@ -19,7 +12,8 @@ export const Busqueda = ({ products, setFilteredProducts, search, setSearch}) =>
        .then(info => info.object)
        .then(products => products.filter((product) => {
           console.log(product)
-          return product.title.toLowerCase().startsWith(search.toLowerCase());
+          return product.title.toLowerCase().includes(search.toLowerCase());
+
        }))
        .then(finalProducts => setFilteredProducts(finalProducts))
 

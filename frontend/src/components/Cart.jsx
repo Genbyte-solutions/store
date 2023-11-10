@@ -13,7 +13,7 @@ export function Cart({cart, removeToCart, restQuantity, sumQuantity}) {
                 <th>Numero de identificacion</th>
                 <th>Nombre</th>
                 <th>Precio por Unidad</th>
-                <th>Precio por mayor</th>
+                <th>Size</th>
                 <th>Cantidad</th>
                 <th>Stock</th>
                 <th>Acciones</th>
@@ -22,8 +22,8 @@ export function Cart({cart, removeToCart, restQuantity, sumQuantity}) {
             <tbody>
               {cart.map((product) => (
                 <tr key={product.id}>
-                  <td>{product.id}</td>
-                  <td>{product.name}</td>
+                  <td>{product.productId}</td>
+                  <td>{product.title}</td>
                   <td>${product.unitPrice}</td>
                   <td>{product.wholesalePrice}</td>
                   <td>
