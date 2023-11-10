@@ -8,6 +8,22 @@ export const Busqueda = ({ products, setFilteredProducts, search, setSearch}) =>
       setFilteredProducts([]);
     } else {
       fetch(`http://localhost:8080/api/v1/product?search=${search}`)
+        .then((data) => data.json())
+        .then((info) => info.object)
+        .then(
+          (products) =>
+            products &&
+            products.filter((product) => {
+              return product.title
+                .toLowerCase()
+                .startsWith(search.toLowerCase());
+            })
+        )
+        .then((finalProducts) =>
+          finalProducts
+            ? setFilteredProducts(finalProducts)
+            : setFilteredProducts([])
+        );
        .then(data => data.json())
        .then(info => info.object)
        .then(products => products.filter((product) => {

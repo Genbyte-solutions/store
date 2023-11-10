@@ -4,12 +4,12 @@ export function useCart(){
   const [cart, setCart] = useState([])
 
   const checkIsOnCart = (product) => {
-    return cart.some((pro)=> product.id === pro.id)
+    return cart.some((pro)=> product.productId === pro.productId)
   }
 
   const removeToCart = (id) => {
     const newCart = [...cart];
-    const finalArray = newCart.filter((product) => id !== product.id);
+    const finalArray = newCart.filter((product) => id !== product.productId);
     setCart(finalArray);
   };
 
@@ -17,6 +17,7 @@ export function useCart(){
     if (checkIsOnCart(product)){
       return
     } 
+    product.quantity = 1;
     setCart((prev)=> (
       [...prev, product]
     ) )
@@ -24,7 +25,7 @@ export function useCart(){
 
   const restQuantity = (product) => {
     const newCart = [...cart]
-    const index = newCart.findIndex((pro) => product.id === pro.id)
+    const index = newCart.findIndex((pro) => product.productId === pro.productId)
     if(product.quantity > 1){
       newCart[index].quantity -= 1;
       setCart(newCart);
@@ -33,7 +34,7 @@ export function useCart(){
 
   const sumQuantity = (product) => {
     const newCart = [...cart];
-    const index = newCart.findIndex((pro) => product.id === pro.id);
+    const index = newCart.findIndex((pro) => product.productId === pro.productId);
     if (product.quantity) {
       newCart[index].quantity += 1;
       setCart(newCart);

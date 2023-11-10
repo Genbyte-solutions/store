@@ -25,7 +25,7 @@ export function Cart({cart, removeToCart, restQuantity, sumQuantity}) {
                   <td>{product.productId}</td>
                   <td>{product.title}</td>
                   <td>${product.unitPrice}</td>
-                  <td>{product.wholesalePrice}</td>
+                  <td>{product.size}</td>
                   <td>
                     <Contador
                       restQuantity={restQuantity}
@@ -36,7 +36,7 @@ export function Cart({cart, removeToCart, restQuantity, sumQuantity}) {
                   <td>{product.stock}</td>
                   <td>
                     <button
-                      onClick={() => removeToCart(product.id)}
+                      onClick={() => removeToCart(product.productId)}
                       class="btn-eliminar"
                     >
                       Eliminar Producto
