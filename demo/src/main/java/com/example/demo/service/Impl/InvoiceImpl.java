@@ -27,17 +27,17 @@ public class InvoiceImpl implements IInvoice {
     @Transactional
     @Override
     public void save(PaymentMethod paymentMethod, Long id, BigDecimal transactionAmount, Float discount, String dateApproved, List<CartDto> cart) {
-        Invoice invoice = Invoice.builder()
+        Invoice invoiceBuild = Invoice.builder()
                 .paymentMethod(paymentMethod)
                 .mercadopagoInvoiceId(id)
                 .discount(new BigDecimal(discount))
                 .total(transactionAmount)
                 .emittedAt(dateApproved)
                 .build();
-        invoice = invoiceRepository.save(invoice);
+        Invoice invoice = invoiceRepository.save(invoiceBuild);
 
         for (CartDto product : cart) {
-            InvoiceDetail invDetail = InvoiceDetail.builder()
+            invoiceDetailRepository.save(InvoiceDetail.builder()
                     .productSku(product.getProductSku())
                     .productTitle(product.getProductTitle())
                     .productBrand(product.getProductBrand())
@@ -45,11 +45,8 @@ public class InvoiceImpl implements IInvoice {
                     .quantity(product.getQuantity())
                     .pricePerQuantity(product.getPricePerQuantity())
                     .fkInvoiceId(invoice)
-                    .build();
-            invoiceDetailRepository.save(invDetail);
+                    .build());
         }
-
-//        invoice.setInvoiceDetails(invoiceDetailRepository.findAllByFkInvoiceId(invoice));
     }
 
     @Transactional(readOnly = true)

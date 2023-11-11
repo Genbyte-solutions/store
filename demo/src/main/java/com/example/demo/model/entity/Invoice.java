@@ -25,7 +25,7 @@ public class Invoice {
     @Column(name = "invoice_id")
     private Integer invoiceId;
 
-    @Column(name = "mercadopago_invoice_id")
+    @Column(name = "mercadopago_invoice_id", unique = true)
     private Long mercadopagoInvoiceId;
 
     @Enumerated(EnumType.STRING)

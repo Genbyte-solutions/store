@@ -39,13 +39,13 @@ public class MercadoPagoController {
         if (cart.isEmpty()) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("Cart is empty")
-                    .build(), HttpStatus.OK);
+                    .build(), HttpStatus.METHOD_NOT_ALLOWED);
         }
 
         Preference preference = mercadoPagoService.mpCreateOrder(cart);
 
         return new ResponseEntity<>(ResponseMessage.builder()
-                .object(preference.getInitPoint())
+                .object(preference)
                 .build(), HttpStatus.OK);
     }
 
@@ -55,18 +55,18 @@ public class MercadoPagoController {
             @RequestParam(value = "type") String type) {
 
         if ("payment".equals(type)) {
-//            System.out.println("?data.id=" + dataId + "&type=" + type);
+            System.out.println("?data.id=" + dataId + "&type=" + type);
             String payment = mercadoPagoService.webhookHandler(dataId).getBody();
             JSONObject body = new JSONObject(payment);
 
             String status = body.getString("status");
             String statusDetail = body.getString("status_detail");
 
+//            System.out.println("{status=" + body.getString("status") + ", status_detail=" + body.getString("status_detail") + "}");
             if ("approved".equals(status) && "accredited".equals(statusDetail)) {
                 List<CartDto> cart = cartService.findAll();
-
                 invoiceService.save(
-                        body.getEnum(PaymentMethod.class, body.getString("payment_type_id")),
+                        PaymentMethod.valueOf(body.getString("payment_type_id")),
                         body.getLong("id"),
                         body.getBigDecimal("transaction_amount"),
                         body.getFloat("coupon_amount"),
@@ -76,7 +76,6 @@ public class MercadoPagoController {
                 cartService.deleteAll();
             }
 
-            //System.out.println("{status=" + body.getString("status") + ", status_detail=" + body.getString("status_detail") + "}");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

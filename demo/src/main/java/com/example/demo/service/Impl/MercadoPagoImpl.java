@@ -7,8 +7,7 @@ import com.mercadopago.client.preference.*;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
-import com.mercadopago.resources.preference.PreferenceTax;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,17 +22,16 @@ import java.util.List;
 @Service
 public class MercadoPagoImpl implements IMercadoPago {
 
-    @Value("${ACCESS_TOKEN}")
-    private String accessToken;
-
-    @Value("${HTTPS_GNROK}")
-    private String httpsWebhook;
-
+    private final Environment env;
     private final RestTemplate restTemplate = new RestTemplate();
+
+    public MercadoPagoImpl(Environment env) {
+        this.env = env;
+    }
 
     @Override
     public Preference mpCreateOrder(List<CartDto> cart) throws MPException, MPApiException {
-        MercadoPagoConfig.setAccessToken(accessToken);
+        MercadoPagoConfig.setAccessToken(env.getProperty("ACCESS_TOKEN"));
 
         PreferenceClient client = new PreferenceClient();
         List<PreferenceItemRequest> items = new ArrayList<>();
@@ -41,8 +39,7 @@ public class MercadoPagoImpl implements IMercadoPago {
         for (CartDto product : cart) {
             items.add(PreferenceItemRequest.builder()
                     .id(product.getProductSku())
-                    .title(product.getProductTitle())
-                    .description("Marca: " + product.getProductBrand() + " - Talla: " + product.getProductSize())
+                    .title(product.getProductTitle() + " " + product.getProductBrand() + " " + product.getProductSize())
                     .unitPrice(product.getUnitPrice())
                     .currencyId("COL")
                     .quantity(product.getQuantity())
@@ -58,8 +55,8 @@ public class MercadoPagoImpl implements IMercadoPago {
 
         PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                 .items(items)
-                .backUrls(backUrls)
-                .notificationUrl(httpsWebhook + "/api/v1/webhook")
+//                .backUrls(backUrls)
+                .notificationUrl(env.getProperty("HTTPS_HOOK") + "/api/v1/webhook")
                 .build();
 
         return client.create(preferenceRequest);
@@ -68,7 +65,7 @@ public class MercadoPagoImpl implements IMercadoPago {
     @Override
     public ResponseEntity<String> webhookHandler(Long dataId) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + accessToken);
+        headers.set("Authorization", "Bearer " + env.getProperty("ACCESS_TOKEN"));
         HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
         String url = "https://api.mercadopago.com/v1/payments/" + dataId;
         return restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
