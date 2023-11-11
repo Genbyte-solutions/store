@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -58,7 +58,7 @@ class CartController {
     @GetMapping("/cart/products")
     public ResponseEntity<?> findAll() {
         BigDecimal total = new BigDecimal(0);
-        LinkedList<CartDto> cart = cartService.findAll();
+        List<CartDto> cart = cartService.findAll();
 
         for (CartDto product : cart) {
             total = total.add(product.getPricePerQuantity());

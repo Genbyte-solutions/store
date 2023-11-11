@@ -1,9 +1,6 @@
 package com.example.demo.service.Impl;
 
-import com.example.demo.mapper.InvoiceDetailMapper;
-import com.example.demo.mapper.InvoiceMapper;
-import com.example.demo.model.dto.InvoiceDetailDto;
-import com.example.demo.model.dto.InvoiceDto;
+import com.example.demo.model.dto.CartDto;
 import com.example.demo.model.entity.Invoice;
 import com.example.demo.model.entity.InvoiceDetail;
 import com.example.demo.model.enums.PaymentMethod;
@@ -20,43 +17,39 @@ import java.util.List;
 public class InvoiceImpl implements IInvoice {
 
     private final InvoiceRepository invoiceRepository;
-    private final InvoiceMapper invoiceMapper;
-
     private final InvoiceDetailRepository invoiceDetailRepository;
-    private final InvoiceDetailMapper invoiceDetailMapper;
 
-    public InvoiceImpl(InvoiceRepository invoiceRepository, InvoiceDetailRepository invoiceDetailRepository, InvoiceMapper invoiceMapper, InvoiceDetailMapper invoiceDetailMapper) {
+    public InvoiceImpl(InvoiceRepository invoiceRepository, InvoiceDetailRepository invoiceDetailRepository) {
         this.invoiceRepository = invoiceRepository;
         this.invoiceDetailRepository = invoiceDetailRepository;
-        this.invoiceMapper = invoiceMapper;
-        this.invoiceDetailMapper = invoiceDetailMapper;
     }
 
     @Transactional
     @Override
-    public Invoice save(InvoiceDto invoiceDto) {
-        Invoice invoice = invoiceMapper.toEntity(invoiceDto);
+    public void save(PaymentMethod paymentMethod, Long id, BigDecimal transactionAmount, Float discount, String dateApproved, List<CartDto> cart) {
+        Invoice invoice = Invoice.builder()
+                .paymentMethod(paymentMethod)
+                .mercadopagoInvoiceId(id)
+                .discount(new BigDecimal(discount))
+                .total(transactionAmount)
+                .emittedAt(dateApproved)
+                .build();
         invoice = invoiceRepository.save(invoice);
 
-        for (InvoiceDetailDto invoiceDetail : invoiceDto.getInvoiceDetailDtos()) {
-            InvoiceDetail invDetail = invoiceDetailMapper.toEntity(invoiceDetail, invoice);
+        for (CartDto product : cart) {
+            InvoiceDetail invDetail = InvoiceDetail.builder()
+                    .productSku(product.getProductSku())
+                    .productTitle(product.getProductTitle())
+                    .productBrand(product.getProductBrand())
+                    .productSize(product.getProductSize())
+                    .quantity(product.getQuantity())
+                    .pricePerQuantity(product.getPricePerQuantity())
+                    .fkInvoiceId(invoice)
+                    .build();
             invoiceDetailRepository.save(invDetail);
         }
-        invoice.setInvoiceDetails(invoiceDetailRepository.findAllByFkInvoiceId(invoice));
-        setTotalAmount(invoice);
 
-        return invoice;
-    }
-
-    public void setTotalAmount(Invoice invoice) {
-        BigDecimal totalAmount = new BigDecimal(0);
-
-        for (InvoiceDetail i : invoice.getInvoiceDetails()) {
-            totalAmount = totalAmount.add(i.getPricePerQuantity());
-        }
-
-        invoice.setTotal(totalAmount);
-        invoiceRepository.save(invoice);
+//        invoice.setInvoiceDetails(invoiceDetailRepository.findAllByFkInvoiceId(invoice));
     }
 
     @Transactional(readOnly = true)

@@ -5,12 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
 @ToString
 @Builder
-public class CartDto {
+public class CartDto implements Serializable {
     private String productSku;
     private String productTitle;
     private String productBrand;

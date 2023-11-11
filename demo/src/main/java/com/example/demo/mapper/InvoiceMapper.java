@@ -18,6 +18,7 @@ public class InvoiceMapper {
     public InvoiceResponseDto toDTO(Invoice invoice) {
         return InvoiceResponseDto.builder()
                 .invoiceId(invoice.getInvoiceId())
+                .mercadopagoInvoiceId(invoice.getMercadopagoInvoiceId())
                 .paymentMethod(invoice.getPaymentMethod())
                 .discount(invoice.getDiscount())
                 .total(invoice.getTotal())

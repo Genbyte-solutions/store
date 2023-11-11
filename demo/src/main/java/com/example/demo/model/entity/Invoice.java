@@ -25,6 +25,9 @@ public class Invoice {
     @Column(name = "invoice_id")
     private Integer invoiceId;
 
+    @Column(name = "mercadopago_invoice_id")
+    private Long mercadopagoInvoiceId;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method", nullable = false)
     private PaymentMethod paymentMethod;
@@ -35,9 +38,8 @@ public class Invoice {
     @Column(name = "total", nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
 
-    @CreationTimestamp
     @Column(name = "emitted_at", updatable = false)
-    private Timestamp emittedAt;
+    private String emittedAt;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "fkInvoiceId")

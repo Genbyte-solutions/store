@@ -1,13 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.mapper.InvoiceMapper;
-import com.example.demo.model.dto.InvoiceDto;
 import com.example.demo.model.dto.response.InvoiceResponseDto;
 import com.example.demo.model.entity.Invoice;
 import com.example.demo.model.enums.PaymentMethod;
 import com.example.demo.model.payload.ResponseMessage;
 import com.example.demo.service.IInvoice;
-import com.example.demo.service.ICart;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +16,14 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class InvoiceController {
     private final IInvoice invoiceService;
-    private final ICart ticketService;
     private final InvoiceMapper invoiceMapper;
 
-    public InvoiceController(IInvoice invoiceService, ICart ticketService, InvoiceMapper invoiceMapper) {
+    public InvoiceController(IInvoice invoiceService, InvoiceMapper invoiceMapper) {
         this.invoiceService = invoiceService;
-        this.ticketService = ticketService;
         this.invoiceMapper = invoiceMapper;
     }
 
-    @PostMapping("/invoice")
+    /*@PostMapping("/invoice")
     public ResponseEntity<?> create(@RequestBody InvoiceDto invoiceDto) {
 
         if (invoiceDto.getInvoiceDetailDtos().isEmpty()) {
@@ -37,13 +33,13 @@ public class InvoiceController {
         }
 
         Invoice invoice = invoiceService.save(invoiceDto);
-        ticketService.deleteAll();
+        cartService.deleteAll();
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("Invoice generated")
                 .object(invoice)
                 .build(), HttpStatus.CREATED);
-    }
+    }*/
 
     @GetMapping("/invoice/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Integer id) {

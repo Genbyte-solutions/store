@@ -1,9 +1,11 @@
 package com.example.demo.model.enums;
 
 public enum PaymentMethod {
-    DEBITO,
-    CREDITO,
-    EFECTIVO,
-    TRANSFERENCIA,
-    DIVIDIDO
+    credit_card,
+    debit_card,
+    ticket,
+    atm,
+    bank_transfer,
+    prepaid_card,
+    cash
 }

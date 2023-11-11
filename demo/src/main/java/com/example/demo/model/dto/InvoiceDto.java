@@ -15,12 +15,14 @@ import java.util.List;
 @Builder
 public class InvoiceDto implements Serializable {
     private PaymentMethod paymentMethod;
+    private Long mercadopagoInvoiceId;
     private BigDecimal discount;
     private BigDecimal total;
     private List<InvoiceDetailDto> invoiceDetailDtos;
 
-    public InvoiceDto( PaymentMethod paymentMethod, BigDecimal discount, BigDecimal total, List<InvoiceDetailDto> invoiceDetailDtos) {
+    public InvoiceDto(PaymentMethod paymentMethod, Long mercadopagoInvoiceId, BigDecimal discount, BigDecimal total, List<InvoiceDetailDto> invoiceDetailDtos) {
         this.paymentMethod = paymentMethod;
+        this.mercadopagoInvoiceId = mercadopagoInvoiceId;
         this.discount = discount;
         this.total = total;
         this.invoiceDetailDtos = invoiceDetailDtos;
