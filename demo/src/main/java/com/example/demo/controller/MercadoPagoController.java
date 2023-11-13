@@ -11,11 +11,10 @@ import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
 import org.json.JSONObject;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,7 +31,30 @@ public class MercadoPagoController {
         this.cartService = cartService;
     }
 
-    @PostMapping("/create_order")
+
+    @PostMapping("/cash_order")
+    public ResponseEntity<?> cashCreateOrder(@RequestParam BigDecimal Amount, @RequestParam BigDecimal discount) {
+        List<CartDto> cart = cartService.findAll();
+        if (cart.isEmpty()) {
+            return new ResponseEntity<>(ResponseMessage.builder()
+                    .message("Cart is empty")
+                    .build(), HttpStatus.METHOD_NOT_ALLOWED);
+        }
+
+        invoiceService.save(
+                PaymentMethod.valueOf("cash"),
+                null,
+                Amount,
+                discount,
+                String.valueOf(new Date()),
+                cart
+        );
+        cartService.deleteAll();
+
+        return new ResponseEntity<>(ResponseMessage.builder().build(), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/mercadopago/create_order")
     public ResponseEntity<?> createOrder() throws MPException, MPApiException {
 
         List<CartDto> cart = cartService.findAll();
@@ -46,10 +68,10 @@ public class MercadoPagoController {
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .object(preference)
-                .build(), HttpStatus.OK);
+                .build(), HttpStatus.CREATED);
     }
 
-    @PostMapping("/webhook")
+    @PostMapping("/mercadopago/webhook")
     public ResponseEntity<?> webhook(
             @RequestParam(value = "data.id") Long dataId,
             @RequestParam(value = "type") String type) {
@@ -69,7 +91,7 @@ public class MercadoPagoController {
                         PaymentMethod.valueOf(body.getString("payment_type_id")),
                         body.getLong("id"),
                         body.getBigDecimal("transaction_amount"),
-                        body.getFloat("coupon_amount"),
+                        body.getBigDecimal("coupon_amount"),
                         body.getString("date_approved"),
                         cart
                 );

@@ -26,11 +26,11 @@ public class InvoiceImpl implements IInvoice {
 
     @Transactional
     @Override
-    public void save(PaymentMethod paymentMethod, Long id, BigDecimal transactionAmount, Float discount, String dateApproved, List<CartDto> cart) {
+    public void save(PaymentMethod paymentMethod, Long id, BigDecimal transactionAmount, BigDecimal discount, String dateApproved, List<CartDto> cart) {
         Invoice invoiceBuild = Invoice.builder()
                 .paymentMethod(paymentMethod)
-                .mercadopagoInvoiceId(id)
-                .discount(new BigDecimal(discount))
+                .mercadopagoInvoiceId(String.valueOf(id))
+                .discount(transactionAmount)
                 .total(transactionAmount)
                 .emittedAt(dateApproved)
                 .build();

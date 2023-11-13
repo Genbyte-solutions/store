@@ -1,3 +1,4 @@
+/*
 package com.example.demo.model.dto;
 
 import com.example.demo.model.enums.PaymentMethod;
@@ -7,7 +8,6 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -28,3 +28,4 @@ public class InvoiceDto implements Serializable {
         this.invoiceDetailDtos = invoiceDetailDtos;
     }
 }
+*/

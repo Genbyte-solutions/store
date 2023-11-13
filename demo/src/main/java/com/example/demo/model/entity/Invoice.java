@@ -26,13 +26,13 @@ public class Invoice {
     private Integer invoiceId;
 
     @Column(name = "mercadopago_invoice_id", unique = true)
-    private Long mercadopagoInvoiceId;
+    private String mercadopagoInvoiceId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method", nullable = false)
     private PaymentMethod paymentMethod;
 
-    @Column(name = "discount", nullable = false, precision = 3, scale = 2)
+    @Column(name = "discount", nullable = false, precision = 10, scale = 2)
     private BigDecimal discount;
 
     @Column(name = "total", nullable = false, precision = 10, scale = 2)

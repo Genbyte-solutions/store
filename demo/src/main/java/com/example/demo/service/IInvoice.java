@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IInvoice {
 
-    void save(PaymentMethod paymentMethod, Long id, BigDecimal transactionAmount, Float discount, String dateApproved, List<CartDto> cartDtos);
+    void save(PaymentMethod paymentMethod, Long mercadoPagoId, BigDecimal transactionAmount, BigDecimal discount, String dateApproved, List<CartDto> cartDtos);
 
     List<Invoice> findByPaymentMethod(PaymentMethod paymentMethod);
 

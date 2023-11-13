@@ -3,10 +3,14 @@ package com.example.demo.service.Impl;
 import com.example.demo.model.dto.CartDto;
 import com.example.demo.service.IMercadoPago;
 import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.client.payment.PaymentDataRequest;
+import com.mercadopago.client.payment.PaymentMethodRequest;
 import com.mercadopago.client.preference.*;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
+import com.mercadopago.resources.preference.PreferencePaymentType;
+import com.mercadopago.resources.preference.PreferenceTax;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -55,8 +59,8 @@ public class MercadoPagoImpl implements IMercadoPago {
 
         PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                 .items(items)
-//                .backUrls(backUrls)
-                .notificationUrl(env.getProperty("HTTPS_HOOK") + "/api/v1/webhook")
+                .backUrls(backUrls)
+                .notificationUrl(env.getProperty("HTTPS_HOOK") + "/api/v1/mercadopago/webhook")
                 .build();
 
         return client.create(preferenceRequest);
