@@ -1,3 +1,4 @@
+/*
 package com.example.demo.model.dto;
 
 import com.example.demo.model.enums.PaymentMethod;
@@ -15,10 +16,14 @@ import java.util.List;
 @Builder
 public class InvoiceDto implements Serializable {
     private PaymentMethod paymentMethod;
+    private Long mercadopagoInvoiceId;
     private BigDecimal discount;
     private BigDecimal total;
     private List<InvoiceDetailDto> invoiceDetailDtos;
 
+    public InvoiceDto(PaymentMethod paymentMethod, Long mercadopagoInvoiceId, BigDecimal discount, BigDecimal total, List<InvoiceDetailDto> invoiceDetailDtos) {
+        this.paymentMethod = paymentMethod;
+        this.mercadopagoInvoiceId = mercadopagoInvoiceId;
     public InvoiceDto( PaymentMethod paymentMethod, BigDecimal discount, BigDecimal total, List<InvoiceDetailDto> invoiceDetailDtos) {
         this.paymentMethod = paymentMethod;
         this.discount = discount;
@@ -26,3 +31,5 @@ public class InvoiceDto implements Serializable {
         this.invoiceDetailDtos = invoiceDetailDtos;
     }
 }
+*/
++

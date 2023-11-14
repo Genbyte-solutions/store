@@ -7,6 +7,12 @@ import com.example.demo.service.ICart;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class CartImpl implements ICart {
+    private final List<CartDto> cart = new ArrayList<>();
 import java.util.LinkedList;
 
 @Service
@@ -33,6 +39,7 @@ public class CartImpl implements ICart {
     }
 
     @Override
+    public List<CartDto> findAll() {
     public LinkedList<CartDto> findAll() {
         return cart;
     }

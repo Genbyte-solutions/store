@@ -18,6 +18,14 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class InvoiceController {
     private final IInvoice invoiceService;
+    private final InvoiceMapper invoiceMapper;
+
+    public InvoiceController(IInvoice invoiceService, InvoiceMapper invoiceMapper) {
+        this.invoiceService = invoiceService;
+        this.invoiceMapper = invoiceMapper;
+    }
+
+    /*@PostMapping("/invoice")
     private final ICart ticketService;
     private final InvoiceMapper invoiceMapper;
 
@@ -37,12 +45,14 @@ public class InvoiceController {
         }
 
         Invoice invoice = invoiceService.save(invoiceDto);
+        cartService.deleteAll();
         ticketService.deleteAll();
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("Invoice generated")
                 .object(invoice)
                 .build(), HttpStatus.CREATED);
+    }*/
     }
 
     @GetMapping("/invoice/{id}")

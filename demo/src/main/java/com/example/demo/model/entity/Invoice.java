@@ -25,16 +25,22 @@ public class Invoice {
     @Column(name = "invoice_id")
     private Integer invoiceId;
 
+    @Column(name = "mercadopago_invoice_id", unique = true)
+    private String mercadopagoInvoiceId;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method", nullable = false)
     private PaymentMethod paymentMethod;
 
+    @Column(name = "discount", nullable = false, precision = 10, scale = 2)
     @Column(name = "discount", nullable = false, precision = 3, scale = 2)
     private BigDecimal discount;
 
     @Column(name = "total", nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
 
+    @Column(name = "emitted_at", updatable = false)
+    private String emittedAt;
     @CreationTimestamp
     @Column(name = "emitted_at", updatable = false)
     private Timestamp emittedAt;

@@ -14,6 +14,16 @@ import java.util.List;
 @Builder
 public class InvoiceResponseDto {
     private Integer invoiceId;
+    private String mercadopagoInvoiceId;
+    private PaymentMethod paymentMethod;
+    private BigDecimal discount;
+    private BigDecimal total;
+    private String emittedAt;
+    private List<InvoiceDetailResponseDto> invoiceDetailResponseDtos;
+
+    public InvoiceResponseDto(Integer invoiceId, String mercadopagoInvoiceId, PaymentMethod paymentMethod, BigDecimal discount, BigDecimal total, String emittedAt, List<InvoiceDetailResponseDto> invoiceDetailResponseDtos) {
+        this.invoiceId = invoiceId;
+        this.mercadopagoInvoiceId = mercadopagoInvoiceId;
     private PaymentMethod paymentMethod;
     private BigDecimal discount;
     private BigDecimal total;
