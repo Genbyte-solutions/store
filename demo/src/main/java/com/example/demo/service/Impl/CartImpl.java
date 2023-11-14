@@ -36,5 +36,4 @@ public class CartImpl implements ICart {
     public void deleteAll() {
         localCart.clear();
     }
-
 }
