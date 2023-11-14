@@ -1,5 +1,6 @@
 package com.example.demo.service.Impl;
 
+import com.example.demo.model.dto.CartDto;
 import com.example.demo.mapper.InvoiceDetailMapper;
 import com.example.demo.mapper.InvoiceMapper;
 import com.example.demo.model.dto.InvoiceDetailDto;
@@ -20,6 +21,11 @@ import java.util.List;
 public class InvoiceImpl implements IInvoice {
 
     private final InvoiceRepository invoiceRepository;
+    private final InvoiceDetailRepository invoiceDetailRepository;
+
+    public InvoiceImpl(InvoiceRepository invoiceRepository, InvoiceDetailRepository invoiceDetailRepository) {
+        this.invoiceRepository = invoiceRepository;
+        this.invoiceDetailRepository = invoiceDetailRepository;
     private final InvoiceMapper invoiceMapper;
 
     private final InvoiceDetailRepository invoiceDetailRepository;
@@ -34,6 +40,27 @@ public class InvoiceImpl implements IInvoice {
 
     @Transactional
     @Override
+    public void save(PaymentMethod paymentMethod, Long id, BigDecimal transactionAmount, BigDecimal discount, String dateApproved, List<CartDto> cart) {
+        Invoice invoiceBuild = Invoice.builder()
+                .paymentMethod(paymentMethod)
+                .mercadopagoInvoiceId(String.valueOf(id))
+                .discount(transactionAmount)
+                .total(transactionAmount)
+                .emittedAt(dateApproved)
+                .build();
+        Invoice invoice = invoiceRepository.save(invoiceBuild);
+
+        for (CartDto product : cart) {
+            invoiceDetailRepository.save(InvoiceDetail.builder()
+                    .productSku(product.getProductSku())
+                    .productTitle(product.getProductTitle())
+                    .productBrand(product.getProductBrand())
+                    .productSize(product.getProductSize())
+                    .quantity(product.getQuantity())
+                    .pricePerQuantity(product.getPricePerQuantity())
+                    .fkInvoiceId(invoice)
+                    .build());
+        }
     public Invoice save(InvoiceDto invoiceDto) {
         Invoice invoice = invoiceMapper.toEntity(invoiceDto);
         invoice = invoiceRepository.save(invoice);
