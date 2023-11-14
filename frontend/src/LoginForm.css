@@ -226,7 +226,9 @@ section ul {
 .search-button:hover {
   background-color: #0056b3;
 }
-
+.stock{
+  width: 20px;
+}
 .results-search {
   display: flex;
   justify-content: center;
@@ -315,7 +317,10 @@ section ul {
 }
 
 .no-results-container .search-error{
-  color: #dc3545;
+  text-align: center;
+  color: rgb(9, 112, 9);
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .no-results-container p {
@@ -387,14 +392,15 @@ section ul {
 }
 .cart table {
   width : 100%;
- 
+  
 }
+
 .cart table thead tr th{
- padding: 10px;
+ padding: 6px;
  border-bottom:0.5px solid black;
 }
 .cart table tbody tr td{
-  padding: 10px;
+  padding:6px;
   border-bottom: 0.5px solid black;
 }
 /* .cart table  tbody{
@@ -404,7 +410,7 @@ section ul {
   margin: 5px;
     background-color: #dc3545;
     color: white;
-    padding: 5px 10px;
+    padding: 5px 9px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -424,8 +430,14 @@ section ul {
 .contador{
   display: flex;
   justify-content: center;
+  align-items: center;
+
 }
 .contador p{
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+padding-top: 12px;
   font-weight: bold;
 }
 .btn__add{

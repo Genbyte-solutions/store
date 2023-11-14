@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Contador } from "./Contador";
 
-export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart}) => {
+export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart }) => {
+
+  
   return filteredProducts.length ? (
     <div className="section-show-results">
       <div className="results-search">
@@ -11,19 +13,20 @@ export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart}) =
               <th>Número de Identificación</th>
               <th>Nombre</th>
               <th>Precio por Unidad</th>
-              <th>Size</th>
-              <th>Cantidad</th>
+              <th>Marca</th>
+              <th>Talle</th>
               <th>Stock</th>
+              <th>Agregar</th>
             </tr>
           </thead>
           <tbody>
             {filteredProducts.map((product) => (
               <tr key={product.id}>
-                <td>{product.productId}</td>
+                <td>{product.sku}</td>
                 <td>{product.title}</td>
                 <td>${product.unitPrice}</td>
+                <td>{product.brand}</td>
                 <td>{product.size}</td>
-                <td>{product.quantity ?? 1}</td>
                 <td>{product.stock}</td>
                 <td>
                   {checkIsOnCart(product) ? (
@@ -47,27 +50,27 @@ export const Results = ({ filteredProducts, search, addToCart, checkIsOnCart}) =
     </div>
   ) : (
     <div className="section-show-results">
-      <NoResults search={search} />
+      <NoResults search={search} filteredProducts={filteredProducts}  />
     </div>
   );
 };
 
-const NoResults = ({ search }) => {
-  const isInputEmpty = useRef(true);
-
-  useEffect(() => {
-    isInputEmpty.current = search === "";
-  }, [search]);
+const NoResults = ({ search, filteredProducts}) => {
 
   return (
     <div className="no-results-container">
-      {isInputEmpty.current ? (
-        <p>
-          Escribe el nombre/ID del producto que desea buscar...
-        </p>
-      ) : (
-        <p className="search-error">No se encontraron resultados</p>
-      )}
+
+
+      { search === "" ?(
+
+        <p>  Escribe el nombre/ID del producto que desea buscar...</p>
+        ) : filteredProducts.length === 0 && search.length >10 ? (
+          <p>No se encontraron productos</p>
+        ): <></>
+        }
+       
+      
+      
     </div>
   )
 };

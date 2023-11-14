@@ -1,7 +1,6 @@
 package com.example.demo.mapper;
 
 //import com.example.demo.model.dto.InvoiceDto;
-import com.example.demo.model.dto.InvoiceDto;
 import com.example.demo.model.dto.response.InvoiceResponseDto;
 import com.example.demo.model.entity.Invoice;
 import org.mapstruct.Mapper;
@@ -43,12 +42,10 @@ public class InvoiceMapper {
     }
 
     /*public Invoice toEntity(InvoiceDto invoiceDto) {
-    public Invoice toEntity(InvoiceDto invoiceDto) {
         return Invoice.builder()
                 .paymentMethod(invoiceDto.getPaymentMethod())
                 .discount(invoiceDto.getDiscount())
                 .total(invoiceDto.getTotal())
                 .build();
     }*/
-    }
 }

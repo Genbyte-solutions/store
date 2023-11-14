@@ -13,11 +13,6 @@ import java.util.List;
 @Service
 public class CartImpl implements ICart {
     private final List<CartDto> cart = new ArrayList<>();
-import java.util.LinkedList;
-
-@Service
-public class CartImpl implements ICart {
-    private final LinkedList<CartDto> cart = new LinkedList<>();
     private final CartMapper cartMapper;
 
     public CartImpl(CartMapper cartMapper) {
@@ -40,7 +35,6 @@ public class CartImpl implements ICart {
 
     @Override
     public List<CartDto> findAll() {
-    public LinkedList<CartDto> findAll() {
         return cart;
     }
 

@@ -24,19 +24,10 @@ public class InvoiceResponseDto {
     public InvoiceResponseDto(Integer invoiceId, String mercadopagoInvoiceId, PaymentMethod paymentMethod, BigDecimal discount, BigDecimal total, String emittedAt, List<InvoiceDetailResponseDto> invoiceDetailResponseDtos) {
         this.invoiceId = invoiceId;
         this.mercadopagoInvoiceId = mercadopagoInvoiceId;
-    private PaymentMethod paymentMethod;
-    private BigDecimal discount;
-    private BigDecimal total;
-    private Timestamp emittedAt;
-    private List<InvoiceDetailResponseDto> invoiceDetailResponseDtos;
-
-    public InvoiceResponseDto(Integer invoiceId, PaymentMethod paymentMethod, BigDecimal discount, BigDecimal total, Timestamp emittedAt, List<InvoiceDetailResponseDto> invoiceDetailResponseDtos) {
-        this.invoiceId = invoiceId;
         this.paymentMethod = paymentMethod;
         this.discount = discount;
         this.total = total;
         this.emittedAt = emittedAt;
         this.invoiceDetailResponseDtos = invoiceDetailResponseDtos;
     }
-
 }

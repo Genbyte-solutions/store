@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 
 export const Busqueda = ({ setFilteredProducts, search, setSearch }) => {
+
   const handleClick = () => {
     if (search === "") {
       setFilteredProducts([]);
@@ -15,6 +16,8 @@ export const Busqueda = ({ setFilteredProducts, search, setSearch }) => {
           );
           setFilteredProducts(filteredProducts);
         })
+       
+
         .catch((error) => {
           console.log("Error fetching data:", error);
           setFilteredProducts([]);

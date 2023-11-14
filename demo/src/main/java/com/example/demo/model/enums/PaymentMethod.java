@@ -8,9 +8,4 @@ public enum PaymentMethod {
     bank_transfer,
     prepaid_card,
     cash
-    DEBITO,
-    CREDITO,
-    EFECTIVO,
-    TRANSFERENCIA,
-    DIVIDIDO
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.LinkedList;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -60,7 +59,6 @@ class CartController {
     public ResponseEntity<?> findAll() {
         BigDecimal total = new BigDecimal(0);
         List<CartDto> cart = cartService.findAll();
-        LinkedList<CartDto> cart = cartService.findAll();
 
         for (CartDto product : cart) {
             total = total.add(product.getPricePerQuantity());

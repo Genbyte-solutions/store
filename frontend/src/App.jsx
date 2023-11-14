@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Home } from "./components/Home";
-import { LoginForm } from "./components/Login";
+import { LoginForm } from "./components/Login"
+import Pay_Verification from './components/Pay_Verification/Pay_Verification';
 import FormasDePago from './page/formaDePago'
 import FormasDePagoHibrida from './page/formaDePagoHibrida'
 import { BrowserRouter, Routes, Route } from "react-router-dom";

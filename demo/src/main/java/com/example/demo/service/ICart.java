@@ -4,7 +4,6 @@ import com.example.demo.model.dto.CartDto;
 import com.example.demo.model.dto.response.ProductResponseDto;
 
 import java.util.List;
-import java.util.LinkedList;
 
 public interface ICart {
     void save(ProductResponseDto productResponseDto);
@@ -12,7 +11,6 @@ public interface ICart {
     void update(CartDto cartDto, Integer quantity, String productSku);
 
     List<CartDto> findAll();
-    LinkedList<CartDto> findAll();
 
     CartDto findByProductSku(String productSku);
 
