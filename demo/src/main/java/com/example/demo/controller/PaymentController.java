@@ -20,17 +20,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-public class MercadoPagoController {
+public class PaymentController {
     private final IMercadoPago mercadoPagoService;
     private final IInvoice invoiceService;
     private final ICart cartService;
 
-    public MercadoPagoController(IMercadoPago mercadoPagoService, IInvoice invoiceService, ICart cartService) {
+    public PaymentController(IMercadoPago mercadoPagoService, IInvoice invoiceService, ICart cartService) {
         this.mercadoPagoService = mercadoPagoService;
         this.invoiceService = invoiceService;
         this.cartService = cartService;
     }
-
 
     @PostMapping("/cash_order")
     public ResponseEntity<?> cashCreateOrder(@RequestParam BigDecimal Amount, @RequestParam BigDecimal discount) {
@@ -61,7 +60,7 @@ public class MercadoPagoController {
         if (cart.isEmpty()) {
             return new ResponseEntity<>(ResponseMessage.builder()
                     .message("Cart is empty")
-                    .build(), HttpStatus.METHOD_NOT_ALLOWED);
+                    .build(), HttpStatus.BAD_REQUEST);
         }
 
         Preference preference = mercadoPagoService.mpCreateOrder(cart);

@@ -38,10 +38,10 @@ public class InvoiceImpl implements IInvoice {
 
         for (CartDto product : cart) {
             invoiceDetailRepository.save(InvoiceDetail.builder()
-                    .productSku(product.getProductSku())
-                    .productTitle(product.getProductTitle())
-                    .productBrand(product.getProductBrand())
-                    .productSize(product.getProductSize())
+                    .productSku(product.getSku())
+                    .productTitle(product.getTitle())
+                    .productBrand(product.getBrand())
+                    .productSize(product.getSize())
                     .quantity(product.getQuantity())
                     .pricePerQuantity(product.getPricePerQuantity())
                     .fkInvoiceId(invoice)

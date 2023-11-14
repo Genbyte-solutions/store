@@ -17,7 +17,7 @@ export function Cart({ cart, removeToCart, restQuantity, sumQuantity }) {
             "Content-Type": "application/json"
           },
           body: JSON.stringify(
-            data[0]
+            data
           )
         }
         const response = await fetch("http://localhost:8080/api/v1/cart", setting)
@@ -38,12 +38,13 @@ export function Cart({ cart, removeToCart, restQuantity, sumQuantity }) {
     const dataTable = cart.map((product) => (
       {
         
-        productId: product.productId,
         sku: product.sku || "",
         title: product.title,
-        unitPrice: product.unitPrice,
+        brand : product.brand,
         size: product.size || "XS",
-        stock: product.stock || 0,
+        quantity: 2,
+        unitPrice: product.unitPrice,
+        pricePerQuantity: product.pricePerQuantity || 0,
         
       }
 

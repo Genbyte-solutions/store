@@ -3,14 +3,10 @@ package com.example.demo.service.Impl;
 import com.example.demo.model.dto.CartDto;
 import com.example.demo.service.IMercadoPago;
 import com.mercadopago.MercadoPagoConfig;
-import com.mercadopago.client.payment.PaymentDataRequest;
-import com.mercadopago.client.payment.PaymentMethodRequest;
 import com.mercadopago.client.preference.*;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
-import com.mercadopago.resources.preference.PreferencePaymentType;
-import com.mercadopago.resources.preference.PreferenceTax;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +37,8 @@ public class MercadoPagoImpl implements IMercadoPago {
 
         for (CartDto product : cart) {
             items.add(PreferenceItemRequest.builder()
-                    .id(product.getProductSku())
-                    .title(product.getProductTitle() + " " + product.getProductBrand() + " " + product.getProductSize())
+                    .id(product.getSku())
+                    .title(product.getTitle() + " " + product.getBrand() + " " + product.getSize())
                     .unitPrice(product.getUnitPrice())
                     .currencyId("COL")
                     .quantity(product.getQuantity())
