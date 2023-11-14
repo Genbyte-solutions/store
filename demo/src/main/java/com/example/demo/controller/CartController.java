@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 class CartController {
-
     private final ICart cartService;
 
     CartController(ICart cartService) {
@@ -23,36 +22,18 @@ class CartController {
     }
 
     @PostMapping("/cart")
-    public ResponseEntity<?> addProductToTicket(@RequestBody ProductResponseDto productResponseDto) {
-
-        CartDto cart = cartService.findByProductSku(productResponseDto.getSku());
-
-        if (cart != null) {
+    public ResponseEntity<?> addProductToTicket(@RequestBody List<CartDto> cart) {
+        if (cart.isEmpty()) {
             return new ResponseEntity<>(ResponseMessage.builder()
-                    .message("Product has already been added")
-                    .build(), HttpStatus.CONFLICT);
+                    .message("Cart is empty")
+                    .build(), HttpStatus.BAD_REQUEST);
         }
 
-        cartService.save(productResponseDto);
+        cartService.save(cart);
 
         return new ResponseEntity<>(ResponseMessage.builder()
                 .message("Added product")
                 .build(), HttpStatus.OK);
-    }
-
-    @PatchMapping("/cart/update")
-    public ResponseEntity<?> updateTicket(@RequestParam("quantity") Integer quantity, @RequestParam("productSku") String productSku) {
-
-        CartDto cart = cartService.findByProductSku(productSku);
-
-        if (cart == null) {
-            return new ResponseEntity<>(ResponseMessage.builder()
-                    .message("Product is not on the cart")
-                    .build(), HttpStatus.NOT_FOUND);
-        }
-
-        cartService.update(cart, quantity, productSku);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/cart/products")
@@ -70,24 +51,9 @@ class CartController {
                 .build(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/cart")
-    public ResponseEntity<?> deleteByProductSku(@RequestParam("sku") String sku) {
-
-        CartDto cart = cartService.findByProductSku(sku);
-
-        if (cart != null) {
-            cartService.deleteByProductSku(cart);
-        }
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @DeleteMapping("/cart/clean")
-    public ResponseEntity<?> cleanTicket() {
-
+    @DeleteMapping("/cart/clear")
+    public ResponseEntity<?> deleteAll() {
         cartService.deleteAll();
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
