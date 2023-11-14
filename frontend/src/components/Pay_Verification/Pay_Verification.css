@@ -1,0 +1,23 @@
+.section-container{
+    padding: 0 4em 5em 4em;
+ }
+
+.container-pay{
+    padding: 0 8em;
+}
+ 
+ figure .icon-check{
+     width: 8em;
+     height: 8em;
+     
+ }
+ 
+ .container-pay .data{
+     list-style: none;
+     margin: 0;
+     width: 100%;
+ }
+ 
+ .container-pay .data .list-data{
+     width: 15%;
+ }

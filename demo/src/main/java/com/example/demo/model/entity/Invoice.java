@@ -33,6 +33,7 @@ public class Invoice {
     private PaymentMethod paymentMethod;
 
     @Column(name = "discount", nullable = false, precision = 10, scale = 2)
+    @Column(name = "discount", nullable = false, precision = 3, scale = 2)
     private BigDecimal discount;
 
     @Column(name = "total", nullable = false, precision = 10, scale = 2)
@@ -40,6 +41,9 @@ public class Invoice {
 
     @Column(name = "emitted_at", updatable = false)
     private String emittedAt;
+    @CreationTimestamp
+    @Column(name = "emitted_at", updatable = false)
+    private Timestamp emittedAt;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "fkInvoiceId")

@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @ToString
 @Builder
 public class CartDto implements Serializable {
+public class CartDto {
     private String productSku;
     private String productTitle;
     private String productBrand;
