@@ -13,7 +13,6 @@ public class CartImpl implements ICart {
 
     @Override
     public void save(List<CartDto> cart) {
-        System.out.println(cart.toString());
         for (CartDto product : cart) {
             localCart.add(CartDto.builder()
                     .sku(product.getSku())

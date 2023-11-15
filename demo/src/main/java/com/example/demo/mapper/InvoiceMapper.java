@@ -41,11 +41,4 @@ public class InvoiceMapper {
         return list;
     }
 
-    /*public Invoice toEntity(InvoiceDto invoiceDto) {
-        return Invoice.builder()
-                .paymentMethod(invoiceDto.getPaymentMethod())
-                .discount(invoiceDto.getDiscount())
-                .total(invoiceDto.getTotal())
-                .build();
-    }*/
 }
