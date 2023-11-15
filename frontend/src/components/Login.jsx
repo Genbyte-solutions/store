@@ -10,34 +10,45 @@ export function LoginForm({ setUser, user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (user === "" || password === "") {
       setError("Todos los campos son obligatorios");
+      setUser("")
+      setPassword("")
       return
     }
-   
+
     if (user.length < 4) {
       setError("El nombre de usuario debe tener al menos 4 caracteres");
+      setUser("")
+      setPassword("")
       return
     }
     if (password.length < 8) {
       setError("La contraseña debe tener al menos 8 caracteres");
+      setUser("")
+      setPassword("")
       return
     }
 
     if (user !== "admin") {
-       setError("Usuario incorrecto");
-       return;
-     }
+      setUser("")
+
+      setError("Usuario incorrecto");
+      return;
+    }
 
     if (password !== "123456789") {
-       setError("Contraseña Incorrecta");
-       return;
-     }
+
+      setPassword("")
+      setError("Contraseña Incorrecta");
+      return;
+    }
 
     else {
       return navigate('/home')
-    } 
+    }
+
   };
 
   return (
@@ -64,11 +75,11 @@ export function LoginForm({ setUser, user }) {
           onChange={(e) => setPassword(e.target.value)}
         />
         {error && <p className="error">{error}</p>}
-          <button className="btn btn-primary" type="submit">
-            Iniciar sesión
-          </button>
+        <button className="btn btn-primary" type="submit">
+          Iniciar sesión
+        </button>
         <div className="recuperar__contraseña">
-          
+
           <a href="">Recuperar usuario</a>
           <a href="">Recuperar contraseña</a>
         </div>

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Contador } from "./Layout/Contador";
 
-export function Cart({ cart, removeToCart, restQuantity, sumQuantity }) {
-
-
-
-  const [data, setdata] = useState(null)
+export function Cart({ cart,data , removeToCart, restQuantity, sumQuantity }) {
+  
+ 
 
   const enviarDatosAlaApi = async () => {
 
@@ -34,24 +32,7 @@ export function Cart({ cart, removeToCart, restQuantity, sumQuantity }) {
     enviarDatosAlaApi()
   }, [data])
 
-  const handleClick = () => {
-    const dataTable = cart.map((product) => (
-      {
-        
-        sku: product.sku || "",
-        title: product.title,
-        brand : product.brand,
-        size: product.size || "XS",
-        quantity: 2,
-        unitPrice: product.unitPrice,
-        pricePerQuantity: product.pricePerQuantity || 0,
-        
-      }
-
-    ))
-    setdata(dataTable)
-    console.log(dataTable);
-  }
+  
   const handleGet = async () => {
 
     const data = await fetch("http://localhost:8080/api/v1/cart/products")
@@ -109,7 +90,7 @@ export function Cart({ cart, removeToCart, restQuantity, sumQuantity }) {
             </tbody>
           </table>
         </div>
-        <button onClick={handleClick}>ENVIAR A LA API</button>
+        {/* <button onClick={handleClick}>ENVIAR A LA API</button> */}
         <button onClick={handleGet} >Traer el carro pa</button>
       </section>
     )

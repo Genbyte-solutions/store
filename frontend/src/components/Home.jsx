@@ -15,6 +15,7 @@ import MyModal from "./ModalPopUp";
 
 
 export function Home({ user }) {
+  const [data, setData] = useState(null)
   const { filteredProducts, setFilteredProducts } = useFilter();
   const { search, setSearch } = useSearch();
   const { cart, addToCart, removeToCart, checkIsOnCart, restQuantity, sumQuantity } = useCart();
@@ -54,8 +55,11 @@ export function Home({ user }) {
             removeToCart={removeToCart}
             restQuantity={restQuantity}
             sumQuantity={sumQuantity}
+            data ={data}
           />
-          <SectionPagos />
+          <SectionPagos 
+          cart ={cart} 
+          setData = {setData}/>
         </div>
       </main>
     </>
