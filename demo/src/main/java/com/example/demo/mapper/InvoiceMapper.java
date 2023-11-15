@@ -1,6 +1,5 @@
 package com.example.demo.mapper;
 
-//import com.example.demo.model.dto.InvoiceDto;
 import com.example.demo.model.dto.response.InvoiceResponseDto;
 import com.example.demo.model.entity.Invoice;
 import org.mapstruct.Mapper;
@@ -40,5 +39,4 @@ public class InvoiceMapper {
 
         return list;
     }
-
 }

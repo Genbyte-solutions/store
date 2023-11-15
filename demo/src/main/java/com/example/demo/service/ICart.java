@@ -11,5 +11,4 @@ public interface ICart {
     List<CartDto> findAll();
 
     void deleteAll();
-
 }
