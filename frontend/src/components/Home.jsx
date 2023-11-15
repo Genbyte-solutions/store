@@ -55,11 +55,12 @@ export function Home({ user }) {
             removeToCart={removeToCart}
             restQuantity={restQuantity}
             sumQuantity={sumQuantity}
-            data ={data}
+            data={data}
           />
           <SectionPagos 
-          cart ={cart} 
-          setData = {setData}/>
+          cart={cart} 
+          setData={setData}
+          data={data}/>
         </div>
       </main>
     </>

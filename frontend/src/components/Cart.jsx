@@ -1,47 +1,7 @@
 import { useEffect, useState } from "react";
 import { Contador } from "./Layout/Contador";
 
-export function Cart({ cart,data , removeToCart, restQuantity, sumQuantity }) {
-  
- 
-
-  const enviarDatosAlaApi = async () => {
-
-    if (data) {
-      try {
-        const setting = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(
-            data
-          )
-        }
-        const response = await fetch("http://localhost:8080/api/v1/cart", setting)
-        const responseData = await response.json()
-        console.log("respuesta de la api ", responseData);
-      }
-      catch (error) {
-        console.log('Error al enviar datos:', error);
-      }
-    }
-
-  }
-  useEffect(() => {
-    enviarDatosAlaApi()
-  }, [data])
-
-  
-  const handleGet = async () => {
-
-    const data = await fetch("http://localhost:8080/api/v1/cart/products")
-    const response = await data.json()
-    console.log(response);
-
-
-  }
-  console.log(cart);
+export function Cart({cart, data, removeToCart, restQuantity, sumQuantity }) {
   return (
     cart.length > 0 && (
       <section>
@@ -75,7 +35,7 @@ export function Cart({ cart,data , removeToCart, restQuantity, sumQuantity }) {
                       product={product}
                     />
                   </td>
-                  <td></td>
+                  <td>{product.unitPrice * product.quantity}</td>
                   <td>
                     <button
                       onClick={() => removeToCart(product.productId)}
@@ -90,8 +50,6 @@ export function Cart({ cart,data , removeToCart, restQuantity, sumQuantity }) {
             </tbody>
           </table>
         </div>
-        {/* <button onClick={handleClick}>ENVIAR A LA API</button> */}
-        <button onClick={handleGet} >Traer el carro pa</button>
       </section>
     )
   );
