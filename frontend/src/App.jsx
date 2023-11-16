@@ -17,7 +17,8 @@ function App() {
         <Route path='/home' element = {<Home user={user} />} />
         <Route path='/formasdepagos' element = {<FormasDePago/>}/>
         <Route path='/formasdepagoshibrida' element = {<FormasDePagoHibrida/>}/>
-        <Route path='/pay' element={<Pay_Verification approved/>}/>
+        <Route path='/pay-approved' element={<Pay_Verification approved/>}/> 
+        <Route path='/pay-reject' element={<Pay_Verification />}/>
       </Routes>
     </BrowserRouter>
   );

@@ -69,7 +69,7 @@ export const SectionPagos = ({cart , setData, data}) => {
         <button type="button" class="btn btn-primary">
           Resumen de ventas
         </button>
-        <button onClick={handleClick}  type="button" class="btn btn-primary">
+       <button onClick={handleClick}  type="button" class="btn btn-primary">
           Elegir forma de pago
         </button>
       </div>

@@ -23,24 +23,6 @@ public class InvoiceController {
         this.invoiceMapper = invoiceMapper;
     }
 
-    /*@PostMapping("/invoice")
-    public ResponseEntity<?> create(@RequestBody InvoiceDto invoiceDto) {
-
-        if (invoiceDto.getInvoiceDetailDtos().isEmpty()) {
-            return new ResponseEntity<>(ResponseMessage.builder()
-                    .message("It is not possible to generate an invoice without products")
-                    .build(), HttpStatus.BAD_REQUEST);
-        }
-
-        Invoice invoice = invoiceService.save(invoiceDto);
-        cartService.deleteAll();
-
-        return new ResponseEntity<>(ResponseMessage.builder()
-                .message("Invoice generated")
-                .object(invoice)
-                .build(), HttpStatus.CREATED);
-    }*/
-
     @GetMapping("/invoice/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
 

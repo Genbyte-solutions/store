@@ -3,6 +3,7 @@ import './Pay_Verification.css';
 import Button_Pay from "../Button/Button";
 import {BiSolidCheckShield} from 'react-icons/bi';
 import {MdCancel} from 'react-icons/md';
+import { Link } from "react-router-dom";
 const Pay_Verification = ({approved}) => {
     return (
         <section className="section-container">
@@ -25,7 +26,7 @@ const Pay_Verification = ({approved}) => {
                     {approved ? <Pay_Verification_Li/> : "Tarjeta rechazada"}
                 </ul>
             </div>
-                <Button_Pay/>
+              <Link to='/home'> <Button_Pay/> </Link> 
             </div>
         </section>
     )
