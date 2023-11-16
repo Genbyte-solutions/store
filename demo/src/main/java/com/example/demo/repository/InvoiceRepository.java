@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface InvoiceRepository extends CrudRepository<Invoice, Integer> {
     List<Invoice> findAllByPaymentMethod(PaymentMethod paymentMethod);
+
+    Invoice findFirstByOrderByEmittedAt();
 }

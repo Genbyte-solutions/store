@@ -3,9 +3,11 @@ package com.example.demo.service.Impl;
 import com.example.demo.model.dto.CartDto;
 import com.example.demo.model.entity.Invoice;
 import com.example.demo.model.entity.InvoiceDetail;
+import com.example.demo.model.entity.Product;
 import com.example.demo.model.enums.PaymentMethod;
 import com.example.demo.repository.InvoiceDetailRepository;
 import com.example.demo.repository.InvoiceRepository;
+import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.IInvoice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +19,12 @@ import java.util.List;
 public class InvoiceImpl implements IInvoice {
 
     private final InvoiceRepository invoiceRepository;
+    private final ProductRepository productRepository;
     private final InvoiceDetailRepository invoiceDetailRepository;
 
-    public InvoiceImpl(InvoiceRepository invoiceRepository, InvoiceDetailRepository invoiceDetailRepository) {
+    public InvoiceImpl(InvoiceRepository invoiceRepository, ProductRepository productRepository, InvoiceDetailRepository invoiceDetailRepository) {
         this.invoiceRepository = invoiceRepository;
+        this.productRepository = productRepository;
         this.invoiceDetailRepository = invoiceDetailRepository;
     }
 
@@ -46,7 +50,15 @@ public class InvoiceImpl implements IInvoice {
                     .pricePerQuantity(product.getPricePerQuantity())
                     .fkInvoiceId(invoice)
                     .build());
+            Product updateProduct = productRepository.findBySku(product.getSku());
+            updateProduct.setStock(updateProduct.getStock() - product.getQuantity());
+            productRepository.save(updateProduct);
         }
+    }
+
+    @Override
+    public Invoice findFirstByOrderByEmittedAt() {
+        return invoiceRepository.findFirstByOrderByEmittedAt();
     }
 
     @Transactional(readOnly = true)

@@ -27,7 +27,7 @@ public class Invoice {
 
     @Column(name = "mercadopago_invoice_id", unique = true)
     private String mercadopagoInvoiceId;
-
+  
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method", nullable = false)
     private PaymentMethod paymentMethod;

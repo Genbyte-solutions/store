@@ -50,7 +50,9 @@ public class PaymentController {
         );
         cartService.deleteAll();
 
-        return new ResponseEntity<>(ResponseMessage.builder().build(), HttpStatus.CREATED);
+        return new ResponseEntity<>(ResponseMessage.builder()
+                .object(invoiceService.findFirstByOrderByEmittedAt())
+                .build(), HttpStatus.CREATED);
     }
 
     @PostMapping("/mercadopago/create_order")
@@ -99,7 +101,7 @@ public class PaymentController {
 
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.PAYMENT_REQUIRED);
     }
 
 }

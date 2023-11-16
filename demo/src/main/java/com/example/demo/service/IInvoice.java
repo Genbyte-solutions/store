@@ -11,6 +11,8 @@ public interface IInvoice {
 
     void save(PaymentMethod paymentMethod, Long mercadoPagoId, BigDecimal transactionAmount, BigDecimal discount, String dateApproved, List<CartDto> cartDtos);
 
+    Invoice findFirstByOrderByEmittedAt();
+
     List<Invoice> findByPaymentMethod(PaymentMethod paymentMethod);
 
     Invoice findById(Integer id);

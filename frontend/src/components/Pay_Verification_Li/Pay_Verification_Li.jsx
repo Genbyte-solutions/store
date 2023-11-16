@@ -20,7 +20,7 @@ const Pay_Verification_Li = () => {
         </li>
         <li className='d-flex justify-content-around align-items-center'>
             <p className='list-data'>Código de transacción:</p>
-            <p className='list-data'>12112121</p>
+            <p className='list-data'>000001</p>
         </li>
         <li className='d-flex justify-content-around align-items-center'>
             <p className='list-data'>Tipo de pago:</p>
@@ -28,7 +28,7 @@ const Pay_Verification_Li = () => {
         </li>
         <li className='d-flex justify-content-around align-items-center'>
             <p className='list-data'>Total:</p>
-            <p className='list-data'>300$</p>
+            <p className='list-data'>montoaCobrar</p>
         </li>
         </>
     )
