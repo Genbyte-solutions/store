@@ -6,11 +6,13 @@ import FormasDePago from './page/formaDePago'
 import FormasDePagoHibrida from './page/formaDePagoHibrida'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./LoginForm.css";
+import PriceProvider from './components/context/PriceProvider';
 
 function App() {
   const [user, setUser] = useState("");
 
   return (
+<PriceProvider>
     <BrowserRouter> 
       <Routes>
         <Route path='/' element = {<LoginForm setUser={setUser} user={user}/>} />
@@ -21,6 +23,7 @@ function App() {
         <Route path='/pay-reject' element={<Pay_Verification />}/>
       </Routes>
     </BrowserRouter>
+  </PriceProvider>
   );
 }
 

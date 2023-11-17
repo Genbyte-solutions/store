@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../css/FormaDePago.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { PriceContext } from "../components/context/PriceContext";
 function FormaDePagoHibrida() {
   const navigate = useNavigate();
     const [productos, setProductos] = useState([]); // Añadido este estado
@@ -10,11 +11,15 @@ function FormaDePagoHibrida() {
     const [monto2, setMonto2] = useState(0);
     const [pago1, setPago1] = useState(null);
     const [pago2, setPago2] = useState(null);
-    const [total, setTotal] = useState(0);
+    // const [total, setTotal] = useState(0);
+
+    const {setPaymentMethod, setPaymentHybrid, setAmountCharged, amountCharged} = useContext(PriceContext);
+    
     const handleMontoChange = (event, montoSetter) => {
         montoSetter(parseFloat(event.target.value) || 0);
     };
     useEffect(() => {
+        setPaymentMethod('');
       axios.get('http://localhost:8080/api/v1/cart/products')
           .then(response => {
               if (response.data && response.data.object) {
@@ -47,7 +52,7 @@ function FormaDePagoHibrida() {
     useEffect(() => {
         const subtotal1 = calcularSubtotal(parseFloat(monto1), pago1);
         const subtotal2 = calcularSubtotal(parseFloat(monto2), pago2);
-        setTotal((subtotal1 + subtotal2).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }));
+        setAmountCharged((subtotal1 + subtotal2).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }));
     }, [monto1, monto2, pago1, pago2]);
     const handleCobrar = () => {
       axios.delete('http://localhost:8080/api/v1/cart/clear')
@@ -88,8 +93,11 @@ function FormaDePagoHibrida() {
                     {["EFECTIVO", "TRANSF", "DÉBITO", "CRÉDITO"].map((pago) => (
                         <button
                             key={pago}
+                            id={pago}
                             className={`btn btn-info ${pago1 === pago ? "selected" : ""}`}
-                            onClick={() => handlePagoChange(pago, setPago1)}
+                            onClick={(e) => {handlePagoChange(pago, setPago1)
+                            setPaymentMethod(e.target.id);
+                            }}
                         >
                             {pago}
                         </button>
@@ -107,8 +115,10 @@ function FormaDePagoHibrida() {
                     {["EFECTIVO", "TRANSF", "DÉBITO", "CRÉDITO"].map((pago) => (
                         <button
                             key={pago}
+                            id={pago}
                             className={`btn btn-info ${pago2 === pago ? "selected" : ""}`}
-                            onClick={() => handlePagoChange(pago, setPago2)}
+                            onClick={(e) => {handlePagoChange(pago, setPago2)
+                            setPaymentHybrid(e.target.id)}}
                         >
                             {pago}
                         </button>
@@ -117,7 +127,7 @@ function FormaDePagoHibrida() {
 
                 <div className="mb-3">
                     <button className="btn btn-light w-100">
-                        Total {total}
+                        Total {amountCharged}
                     </button>
                 </div>
 
