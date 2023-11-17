@@ -23,7 +23,7 @@ const Pay_Verification = ({approved}) => {
                     </div>
                 </div>
                 <ul className='data'>
-                    {approved ? <Pay_Verification_Li/> : "Tarjeta rechazada"}
+                     <Pay_Verification_Li/>
                 </ul>
             </div>
               <Link to='/home'> <Button_Pay/> </Link> 

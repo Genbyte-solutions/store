@@ -39,7 +39,7 @@ export function Cart({cart, data, removeToCart, restQuantity, sumQuantity }) {
                   <td>
                     <button
                       onClick={() => removeToCart(product.productId)}
-                      class="btn-eliminar"
+                      className="btn-eliminar"
                     >
                       Eliminar Producto
                     </button>

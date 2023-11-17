@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Ventas } from "./Layout/Ventas";
 import { Busqueda } from "./Layout/Busqueda";
@@ -12,6 +12,7 @@ import { Cart } from "./Cart";
 import { CloseButton } from "./Layout/CloseButton";
 import { useCart } from "../hooks/useCart";
 import MyModal from "./ModalPopUp";
+import { PriceContext } from './context/PriceContext';
 
 
 export function Home({ user }) {
@@ -21,7 +22,14 @@ export function Home({ user }) {
   const { cart, addToCart, removeToCart, checkIsOnCart, restQuantity, sumQuantity } = useCart();
   const [inputValue, setInputValue] = useState('');
   const [show, setShow] = useState(true);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const {setAmountCharged, setPaymentMethod, setPaymentHybrid} = useContext(PriceContext);
+  useEffect(() => {
+    setAmountCharged('');
+    setPaymentMethod('');
+    setPaymentHybrid('');
+  },[]);
 
   const handleLogout = () => {
     navigate('/')

@@ -60,16 +60,16 @@ export const SectionPagos = ({cart , setData, data}) => {
   return (
     <section className="section-pagos">
       <div>
-        <button type="button" class="btn btn-primary">
+        <button type="button" className="btn btn-primary">
           Reembolsar producto
         </button>
-        <button type="button" class="btn btn-primary">
+        <button type="button" className="btn btn-primary">
           Tickets pendientes
         </button>
-        <button type="button" class="btn btn-primary">
+        <button type="button" className="btn btn-primary">
           Resumen de ventas
         </button>
-       <button onClick={handleClick}  type="button" class="btn btn-primary">
+       <button onClick={handleClick}  type="button" className="btn btn-primary">
           Elegir forma de pago
         </button>
       </div>

@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import '../css/FormaDePago.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { PriceContext } from '../components/context/PriceContext';
 
 function FormaDePago() {
     const [productos, setProductos] = useState([]);
     const [totalCarrito, setTotalCarrito] = useState(0);
-    const [montoaCobrar, setMontoACobrar] = useState("");
     const [mensajeTarjeta, setMensajeTarjeta] = useState("");
     const [mensajePromocion, setMensajePromocion] = useState("");
     const navigate = useNavigate();
+    const {amountCharged, setAmountCharged, setPaymentMethod} = useContext(PriceContext);
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/cart/products')
@@ -21,7 +22,6 @@ function FormaDePago() {
             })
             .catch(error => console.error('Error:', error));
     }, []);
-
     const calcularRecargoODescuento = (tipo) => {
         if (productos.length === 0) return;
 
@@ -51,18 +51,17 @@ function FormaDePago() {
                 break;
         }
 
-        setMontoACobrar(montoFinal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }));
+        setAmountCharged(montoFinal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }));
     };
 
     const handleCobrar = () => {
         axios.delete('http://localhost:8080/api/v1/cart/clear')
             .then(response => {
                 setProductos([]);
-                setTotalCarrito(0);
-                setMontoACobrar(""); 
+                setTotalCarrito(0); 
                 setMensajeTarjeta("");
                 setMensajePromocion("");
-                if(productos.length > 1){
+                if(productos.length < 2){
                     navigate('/pay-reject')
                 } else{
                     navigate('/pay-approved')
@@ -73,6 +72,7 @@ function FormaDePago() {
 if(productos.length == 0){
     navigate('/home')
 }
+
    
     return (
         <>
@@ -84,8 +84,10 @@ if(productos.length == 0){
                     <div className="opcion-pago">
                         <center><h2>FORMAS DE PAGO</h2></center>
                         <div className="d-flex justify-content-between mb-2">
-                            <button className="btn btn-outline-dark" onClick={() => calcularRecargoODescuento('DEBITO')}>TARJETA DE DÉBITO</button>
-                            <button className="btn btn-outline-dark" onClick={() => calcularRecargoODescuento('CREDITO')}>TARJETA DE CRÉDITO</button>
+                            <button className="btn btn-outline-dark" value="debito" onClick={(e) => {calcularRecargoODescuento('DEBITO')
+                        setPaymentMethod(e.target.innerText)}}>TARJETA DE DÉBITO</button>
+                            <button className="btn btn-outline-dark" onClick={(e) => {calcularRecargoODescuento('CREDITO')
+                        setPaymentMethod(e.target.innerText)}}>TARJETA DE CRÉDITO</button>
                         </div>
                         {mensajeTarjeta && <div className="informacion-recargo-descuento">{mensajeTarjeta}</div>}
                     </div>
@@ -94,8 +96,10 @@ if(productos.length == 0){
                 <div className="mb-3 opcion-pago">
                     <h2>PROMOCIONES O DESCUENTOS PAGANDO CON</h2>
                     <div className="d-flex justify-content-between mb-2">
-                        <button className="btn btn-outline-dark" onClick={() => calcularRecargoODescuento('EFECTIVO')}>EFECTIVO</button>
-                        <button className="btn btn-outline-dark" onClick={() => calcularRecargoODescuento('MP')}>MERCADO PAGO</button>
+                        <button className="btn btn-outline-dark" onClick={(e) => {calcularRecargoODescuento('EFECTIVO')
+                    setPaymentMethod(e.target.innerText)}}>EFECTIVO</button>
+                        <button className="btn btn-outline-dark" onClick={(e) => {calcularRecargoODescuento('MP')
+                    setPaymentMethod(e.target.innerText)}}>MERCADO PAGO</button>
                     </div>
                     {mensajePromocion && <div className="informacion-recargo-descuento">{mensajePromocion}</div>}
                 </div>
@@ -106,7 +110,7 @@ if(productos.length == 0){
                     <button className="btn btn-danger" onClick={handleCobrar}>COBRAR</button>
                 </div>
                 <div className='opcion-pago'>
-                    <h6 className='p'>Total a cobrar: {montoaCobrar}</h6>
+                    <h6 className='p'>Total a cobrar: {amountCharged}</h6>
                 </div>
             </div>
         </>
